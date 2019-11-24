@@ -11,5 +11,6 @@ namespace BlogPost.Dal.Ef
         }
 
         public DbSet<BlogEntity> Blogs { get; set; }
+        public DbSet<CommentEntity> Comments { get; set; }
     }
 }

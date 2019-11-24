@@ -1,10 +1,12 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
 using AutoMapper;
+using System.Linq;
 using BlogPost.Bll.DTOs;
-using BlogPost.Bll.Managers;
+using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Web.Models.Blogs;
 using Microsoft.AspNetCore.Mvc;
+using System.Web.Mvc;
 
 namespace BlogPost.Web.Controllers
 {
@@ -22,8 +24,9 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> Index()
         {
             var blogs = await _blogManager.GetAllBlogs();
-            var models = _mapper.Map<IList<BlogViewModel>>(blogs);
-
+            var models = _mapper.Map<IList<BlogViewModel>>(blogs)
+                .OrderByDescending(p => p.CreatedAt);
+            
             return View(models);
         }
 
@@ -44,7 +47,6 @@ namespace BlogPost.Web.Controllers
         {
             var blogDto = await _blogManager.GetBlog(blog.Id);
             var blogModel = _mapper.Map<BlogViewModel>(blogDto);
-
             return View(blogModel);
         }
 

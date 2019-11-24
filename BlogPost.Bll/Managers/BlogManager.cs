@@ -4,6 +4,7 @@ using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Exceptions;
+using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Dal.Entities;
 using BlogPost.Dal.Interfaces.Repositories;
 
@@ -25,7 +26,7 @@ namespace BlogPost.Bll.Managers
         public async Task CreateBlog(BlogDto dto)
         {
             var entity = _mapper.Map<BlogEntity>(dto);
-            //entity.CreatedAt = DateTime.UtcNow;
+            entity.CreatedAt = DateTime.UtcNow;
             await _blogRepository.AddAsync(entity);
         }
 
