@@ -5,7 +5,7 @@ using System.Text;
 
 namespace BlogPost.Dal.Interfaces.Repositories
 {
-    public interface ICommnentRepository: IRepository<CommentEntity>
+    public interface ICommnentRepository : IRepository<CommentEntity>
     {
     }
 }

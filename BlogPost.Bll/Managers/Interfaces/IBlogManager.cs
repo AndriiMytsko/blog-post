@@ -1,6 +1,6 @@
-﻿using BlogPost.Bll.DTOs;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.Threading.Tasks;
+using BlogPost.Bll.DTOs;
 
 namespace BlogPost.Bll.Managers.Interfaces
 {

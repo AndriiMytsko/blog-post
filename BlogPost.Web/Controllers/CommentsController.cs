@@ -1,6 +1,5 @@
 ﻿using System.Collections.Generic;
 using System.Threading.Tasks;
-using System.Web.Mvc;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
@@ -30,7 +29,7 @@ namespace BlogPost.Web.Controllers
 
         public IActionResult CreateComment(int blogId)
         {
-            return View(new CreateCommentViewModel { BlogId = blogId});
+            return View(new CreateCommentViewModel { BlogId = blogId });
         }
 
         public async Task<IActionResult> ConfirmCreateComment(CreateCommentViewModel comment)
@@ -38,7 +37,7 @@ namespace BlogPost.Web.Controllers
             var commentDto = _mapper.Map<CommentDto>(comment);
             await _commentManager.CreateComment(commentDto);
 
-            return View();
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> CommentDetails(CommentViewModel comment)

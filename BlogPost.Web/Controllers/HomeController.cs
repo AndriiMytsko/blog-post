@@ -1,7 +1,6 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BlogPost.Web.Models;
-using System.Web.Mvc;
 
 namespace BlogPost.Web.Controllers
 {
