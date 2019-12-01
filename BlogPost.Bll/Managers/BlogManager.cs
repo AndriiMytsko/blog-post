@@ -40,7 +40,7 @@ namespace BlogPost.Bll.Managers
 
         public async Task<IList<BlogDto>> GetAllBlogs()
         {
-            var entities = await _blogRepository.GetAsync();
+            var entities = await _blogRepository.GetAsync() ;
             var blogs = _mapper.Map<IList<BlogDto>>(entities);
 
             return blogs;
