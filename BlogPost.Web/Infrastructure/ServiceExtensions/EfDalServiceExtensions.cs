@@ -19,6 +19,7 @@ namespace BlogPost.Web.Infrastructure.ServiceExtensions
               options.UseSqlServer(configuration.GetConnectionString("BlogPostDbConnectionString")));
 
             services.AddTransient<IBlogRepository, BlogRepository>();
+            services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ICommnentRepository, CommentRepository>();
             services.AddTransient<IDbTransaction, DbTransaction>();
             services.AddTransient<IUnitOfWork, UnitOfWork<BlogPostContext>>();

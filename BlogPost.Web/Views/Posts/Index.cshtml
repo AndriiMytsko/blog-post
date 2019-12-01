@@ -1,9 +1,14 @@
-﻿@model IEnumerable<CommentViewModel>
+﻿@model IEnumerable<PostViewModel>
 
 @{
-    ViewData["Title"] = "Index";
+    ViewData["Title"] = "PostList";
 }
 
+<h1>Posts</h1>
+
+<p>
+    <a asp-action="CreatePost">Create New</a>
+</p>
 <table class="table">
     <thead>
         <tr>
@@ -11,7 +16,7 @@
                 @Html.DisplayNameFor(model => model.Id)
             </th>
             <th>
-                @Html.DisplayNameFor(model => model.Text)
+                @Html.DisplayNameFor(model => model.Title)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.CreatedAt)
@@ -27,14 +32,14 @@
                     @Html.DisplayFor(modelItem => item.Id)
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Text)
+                    @Html.DisplayFor(modelItem => item.Title)
                 </td>
                 <td>
                     @Html.DisplayFor(modelItem => item.CreatedAt)
                 </td>
                 <td>
-                    @Html.ActionLink("Edit", "Edit", new { /* id=item.PrimaryKey */ }) |
-                    @Html.ActionLink("Delete", "Delete", new { /* id=item.PrimaryKey */ })
+                    @Html.ActionLink("Details", "PostDetails", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "DeletePost", new { id = item.Id })
                 </td>
             </tr>
         }

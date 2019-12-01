@@ -27,9 +27,9 @@ namespace BlogPost.Web.Controllers
             return View(models);
         }
 
-        public IActionResult CreateComment(int blogId)
+        public IActionResult CreateComment(int postId)
         {
-            return View(new CreateCommentViewModel { BlogId = blogId });
+            return View(new CreateCommentViewModel { PostId = postId });
         }
 
         public async Task<IActionResult> ConfirmCreateComment(CreateCommentViewModel comment)
@@ -38,13 +38,6 @@ namespace BlogPost.Web.Controllers
             await _commentManager.CreateComment(commentDto);
 
             return RedirectToAction("Index", "Home");
-        }
-
-        public async Task<IActionResult> CommentDetails(CommentViewModel comment)
-        {
-            var commentDto = await _commentManager.GetComment(comment.Id);
-            var commentModel = _mapper.Map<CommentViewModel>(commentDto);
-            return View(commentModel);
         }
 
         public async Task<IActionResult> EditComment(UpdateCommentViewModel comment)

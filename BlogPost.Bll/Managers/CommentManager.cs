@@ -26,7 +26,7 @@ namespace BlogPost.Bll.Managers
         {
             var entity = _mapper.Map<CommentEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
-            entity.BlogId = dto.BlogId;
+            entity.PostId = dto.PostId;
             await _commnentRepository.AddAsync(entity);
         }
 
@@ -54,11 +54,11 @@ namespace BlogPost.Bll.Managers
 
         public async Task DeleteComment(int id)
         {
-            var commentEntity = await _commnentRepository.GetAsync(id);
+            var entity = await _commnentRepository.GetAsync(id);
 
-            if (commentEntity == null)
+            if (entity == null)
             {
-                throw new NotFoundException($"blog by id {id} doesn't exist");
+                throw new NotFoundException($"comment by id {id} doesn't exist");
             }
 
             await _commnentRepository.RemoveAsync(id);
