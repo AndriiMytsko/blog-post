@@ -12,6 +12,7 @@ namespace BlogPost.Web.Infrastructure
             CreateMap<BlogDto, BlogViewModel>().ReverseMap();
             CreateMap<BlogDto, CreateBlogViewModel>().ReverseMap();
             CreateMap<BlogDto, UpdateBlogViewModel>().ReverseMap();
+
             CreateMap<CommentDto, CreateCommentViewModel>().ReverseMap();
             CreateMap<CommentDto, CommentViewModel>().ReverseMap();
             CreateMap<CommentDto, UpdateCommentViewModel>().ReverseMap();

@@ -2,6 +2,7 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
+using BlogPost.Bll.Managers;
 using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Web.Models.Blogs;
 using Microsoft.AspNetCore.Mvc;

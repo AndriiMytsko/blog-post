@@ -31,7 +31,7 @@
     </dl>
 </div>
 <div>
-    @Html.ActionLink("Edit", "EditBlog", new { Id = Model.Id })
+    @Html.ActionLink("Edit", "EditBlog", new { id = Model.Id })
     @Html.ActionLink("Add comment", "CreateComment", "Comments", new { BlogId = Model.Id })
     <a asp-action="Index">Back to List</a>
 </div>

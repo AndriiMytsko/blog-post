@@ -1,6 +1,4 @@
-﻿using System.Collections.Generic;
-
-namespace BlogPost.Bll.DTOs
+﻿namespace BlogPost.Bll.DTOs
 {
     public class BlogDto
     {
