@@ -11,6 +11,7 @@ namespace BlogPost.Web.Infrastructure.ServiceExtensions
             services.AddTransient<IBlogManager, BlogManager>();
             services.AddTransient<IPostManager , PostManager>();
             services.AddTransient<ICommentManager, CommentManager>();
+            services.AddTransient<IUserManager, UserManager>();
 
             return services;
         }

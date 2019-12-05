@@ -1,4 +1,6 @@
-﻿namespace BlogPost.Bll.DTOs
+﻿using System.Collections.Generic;
+
+namespace BlogPost.Bll.DTOs
 {
     public class PostDto
     {
@@ -6,5 +8,6 @@
         public string Title { get; set; }
         public string Text { get; set; }
         public int BlogId { get; set; }
+        public int UserId { get; set; }
     }
 }

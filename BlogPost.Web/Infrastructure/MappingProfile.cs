@@ -3,6 +3,7 @@ using BlogPost.Bll.DTOs;
 using BlogPost.Web.Models.Blogs;
 using BlogPost.Web.Models.Posts;
 using BlogPost.Web.Models.Comments;
+using BlogPost.Web.Models.Account;
 
 namespace BlogPost.Web.Infrastructure
 {
@@ -10,7 +11,7 @@ namespace BlogPost.Web.Infrastructure
     {
         public MappingProfile()
         {
-            CreateMap<BlogDto, BlogViewModel>().ReverseMap();
+            CreateMap<BlogDto, BlogViewModel>();
             CreateMap<BlogDto, CreateBlogViewModel>().ReverseMap();
             CreateMap<BlogDto, UpdateBlogViewModel>().ReverseMap();
 
@@ -22,6 +23,9 @@ namespace BlogPost.Web.Infrastructure
             CreateMap<PostDto , CreatePostViewModel>().ReverseMap();
             CreateMap<PostDto, UpdatePostViewModel>().ReverseMap();
             CreateMap<PostDto, PostDetailsViewModel>().ReverseMap();
+
+            CreateMap<UserDto, LoginViewModel>();
+            CreateMap<UserDto, RegisterViewModel>().ReverseMap();
         }
     }
 }

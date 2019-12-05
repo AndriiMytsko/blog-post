@@ -1,4 +1,5 @@
-﻿using System.ComponentModel.DataAnnotations.Schema;
+﻿using BlogPost.Dal.Identities;
+using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogPost.Dal.Entities
 {
@@ -7,7 +8,9 @@ namespace BlogPost.Dal.Entities
         public string Text { get; set; }
         public PostEntity PostEntity { get; set; }
 
-        [ForeignKey("PostEntity")]
+        [ForeignKey(nameof(PostEntity))]
         public int PostId { get; set; }
+
+        public int UserId { get; set; }
     }
 }

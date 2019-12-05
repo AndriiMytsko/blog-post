@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
@@ -27,6 +28,7 @@ namespace BlogPost.Bll.Managers
         {
             var entity = _mapper.Map<BlogEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
+            entity.UserId = dto.UserId;
             await _blogRepository.AddAsync(entity);
         }
 
@@ -34,7 +36,7 @@ namespace BlogPost.Bll.Managers
         {
             var entity = await _blogRepository.GetAsync(id);
             var blog = _mapper.Map<BlogDto>(entity);
-
+            
             return blog;
         }
 
@@ -62,6 +64,14 @@ namespace BlogPost.Bll.Managers
             }
 
             await _blogRepository.RemoveAsync(id);
+        }
+
+        public async Task<BlogDto> GetBlogWithPosts(int id)
+        {
+            var entity = await _blogRepository.GetAsync(id);
+            var blog = _mapper.Map<BlogDto>(entity);
+
+            return blog;
         }
     }
 }

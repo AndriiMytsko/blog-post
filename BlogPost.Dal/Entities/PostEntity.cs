@@ -1,4 +1,5 @@
-﻿using System;
+﻿using BlogPost.Dal.Identities;
+using System;
 using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
 using System.Text;
@@ -12,9 +13,11 @@ namespace BlogPost.Dal.Entities
 
         public BlogEntity BlogEntity { get; set; }
 
-        [ForeignKey("BlogEntity")]
+        [ForeignKey(nameof(BlogEntity))]
         public int BlogId { get; set; }
 
-        public virtual IEnumerable<CommentEntity> Comments { get; set; }
+        public int UserId { get; set; }
+
+        public ICollection<CommentEntity> Comments { get; set; }
     }
 }

@@ -2,7 +2,6 @@
 using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
-using BlogPost.Bll.Managers;
 using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Web.Models.Blogs;
 using Microsoft.AspNetCore.Mvc;
@@ -13,11 +12,16 @@ namespace BlogPost.Web.Controllers
     {
         private readonly IMapper _mapper;
         private readonly IBlogManager _blogManager;
+        private readonly IUserManager  _userManager;
 
-        public BlogsController(IMapper mapper, IBlogManager blogManager)
+        public BlogsController(
+            IMapper mapper, 
+            IBlogManager blogManager,
+            IUserManager userManager)
         {
             _mapper = mapper;
             _blogManager = blogManager;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
@@ -36,6 +40,8 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> ConfirmCreateBlog(CreateBlogViewModel blog)
         {
             var blogDto = _mapper.Map<BlogDto>(blog);
+            var name = User.Identity.Name;
+            blogDto.UserId = await _userManager.GetUserId(name);
             await _blogManager.CreateBlog(blogDto);
 
             return RedirectToAction("Index");
