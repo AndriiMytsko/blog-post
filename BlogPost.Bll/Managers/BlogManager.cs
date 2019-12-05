@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
@@ -69,9 +68,26 @@ namespace BlogPost.Bll.Managers
         public async Task<BlogDto> GetBlogWithPosts(int id)
         {
             var entity = await _blogRepository.GetAsync(id);
+            // var entity = await _blogRepository.GetBlogWithUserAsync(id);
             var blog = _mapper.Map<BlogDto>(entity);
+            //blog.User = _mapper.Map<UserDto>(entity.ApplicationUser);
 
             return blog;
         }
+
+        //class UserFilter
+        //{
+        //    public bool UserId { get; set; }
+        //    public bool IncludeUser { get; set; }
+        //}
+
+        //public BlogEntity GetBlog(int id, UserFilter filter)
+        //{
+        //    if (filter.IncludeUser)
+        //    {
+        //        return null;
+        //    }
+        //    return null;
+        //}
     }
 }

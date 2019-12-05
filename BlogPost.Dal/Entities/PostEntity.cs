@@ -1,8 +1,5 @@
-﻿using BlogPost.Dal.Identities;
-using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using System.ComponentModel.DataAnnotations.Schema;
-using System.Text;
 
 namespace BlogPost.Dal.Entities
 {
@@ -10,8 +7,7 @@ namespace BlogPost.Dal.Entities
     {
         public string Title { get; set; }
         public string Text { get; set; }
-
-        public BlogEntity BlogEntity { get; set; }
+        public BlogEntity Blog { get; set; }
 
         [ForeignKey(nameof(BlogEntity))]
         public int BlogId { get; set; }

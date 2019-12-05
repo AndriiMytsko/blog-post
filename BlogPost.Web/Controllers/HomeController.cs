@@ -5,7 +5,7 @@ using BlogPost.Web.Models;
 namespace BlogPost.Web.Controllers
 {
     public class HomeController : Controller
-    {
+    { 
         public IActionResult Index()
         {
             return View();

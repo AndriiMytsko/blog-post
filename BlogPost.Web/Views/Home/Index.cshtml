@@ -5,8 +5,8 @@
 <ul class="nav navbar-nav navbar-right">
     @if (User.Identity.IsAuthenticated)
     {
-        <li>Hello @User.Identity.Name</li>
-        <li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+        <li><a asp-controller="Account" asp-action="UserDetails">@User.Identity.Name</a></li>
+        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
     }
     else
     {

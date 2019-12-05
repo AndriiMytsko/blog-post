@@ -1,8 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Text;
-
-namespace BlogPost.Bll.DTOs
+﻿namespace BlogPost.Bll.DTOs
 {
     public class UserDto
     {

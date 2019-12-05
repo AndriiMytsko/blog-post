@@ -1,4 +1,6 @@
-﻿using AutoMapper;
+﻿using System;
+using System.Linq;
+using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Dal.Identities;
@@ -26,13 +28,6 @@ namespace BlogPost.Bll.Managers
             _roleManager = roleManager;
         }
 
-        public async Task<int> GetUserId(string name)
-        {
-            var user =  await _userManager.FindByNameAsync(name);
-
-            return user.Id;
-        }
-
         public async Task<int> CreateAsync(UserDto userDto, string password)
         {
             var user = _mapper.Map<ApplicationUser>(userDto);
@@ -40,10 +35,11 @@ namespace BlogPost.Bll.Managers
 
             if (result.Succeeded)
             {
-                await _signInManager.SignInAsync(user, false);
+                return user.Id;
             }
 
-            return user.Id;
+            var msg = result.Errors.Select(x => $"[code: {x.Code}: {x.Description}]");
+            throw new Exception($"user cannot be created; details: {msg}");
         }
 
         public async Task<UserDto> SignInAsync(string email, string password)
@@ -53,18 +49,26 @@ namespace BlogPost.Bll.Managers
             var result = await _signInManager
                 .PasswordSignInAsync(user, password, false, false);
 
-            if (result.Succeeded)
+            if (!result.Succeeded)
             {
-                var entity = _mapper.Map<UserDto>(user);
-                return entity;
+                throw new UnauthorizedAccessException("wrong login or password");
             }
 
-            return null;
+            var entity = _mapper.Map<UserDto>(user);
+            return entity;
         }
 
         public async Task SignOutAsync()
         {
             await _signInManager.SignOutAsync();
+        }
+
+        public async Task<UserDto> GetUserDetails(int userId)
+        {
+            var user = await _userManager.FindByIdAsync(userId.ToString());
+            var userDto = _mapper.Map<UserDto>(user);
+
+            return userDto;
         }
     }
 }

@@ -9,18 +9,27 @@ using System.Threading.Tasks;
 namespace BlogPost.Web.Controllers
 {
     [Authorize]
-    public class AccountController : Controller
+    public class AccountController : BaseController
     {
-        private IMapper _mapper;
-        private IUserManager _userManager;
+        private readonly IUserManager _userManager;
 
         public AccountController(
             IMapper mapper,
             IUserManager userManager)
-            :base()
+        : base(mapper)
         {
-            _mapper = mapper;
             _userManager = userManager;
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserDetails()
+        {
+            var userId = GetCurrentUserId();
+            var userDto = await _userManager.GetUserDetails(userId);
+
+            var user = Mapper.Map<UserDetailsViewModel>(userDto);
+
+            return View(user);
         }
 
         [HttpGet]
@@ -34,33 +43,33 @@ namespace BlogPost.Web.Controllers
         [AllowAnonymous]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {
-            var user = _mapper.Map<UserDto>(model);
+            var user = Mapper.Map<UserDto>(model);
             await _userManager.CreateAsync(user, model.Password);
             return View(model);
         }
 
         [HttpGet]
         [AllowAnonymous]
-        public IActionResult Login(string returnUrl = null)
+        public IActionResult Login()
         {
-            return View(new LoginViewModel { ReturnUrl = returnUrl });
+            return View();
         }
 
         [HttpPost]
-        public async Task<IActionResult> Login(LoginViewModel model)
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmLogin(LoginViewModel model)
         {
-            var result = await _userManager
-                .SignInAsync(model.Email, model.Password);
+            await _userManager.SignInAsync(model.Email, model.Password);
 
-            return View(model);
+            return Redirect("~/");
         }
 
-        [HttpPost]
+        [HttpGet]
         public async Task<IActionResult> Logout()
         {
             await _userManager.SignOutAsync();
 
-            return View();
+            return Redirect("~/");
         }
     }
 }
