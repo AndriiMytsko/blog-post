@@ -11,7 +11,7 @@ namespace BlogPost.Web.Controllers
     public class BlogsController : BaseController
     {
         private readonly IBlogManager _blogManager;
-        private readonly IUserManager  _userManager;
+        private readonly IUserManager _userManager;
 
         public BlogsController(
             IMapper mapper, 
@@ -48,7 +48,7 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> BlogDetails(BlogViewModel blog)
         {
-            var blogDto = await _blogManager.GetBlog(blog.Id);
+            var blogDto = await _blogManager.GetBlogWithPosts(blog.Id);
             var blogModel = Mapper.Map<BlogViewModel>(blogDto);
 
             return View(blogModel);

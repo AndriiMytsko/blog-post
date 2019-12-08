@@ -1,4 +1,7 @@
-﻿namespace BlogPost.Bll.DTOs
+﻿using BlogPost.Dal.Entities;
+using System.Collections.Generic;
+
+namespace BlogPost.Bll.DTOs
 {
     public class BlogDto
     {
@@ -6,5 +9,7 @@
         public string Title { get; set; }
         public int UserId { get; set; }
         public UserDto User { get; set; }
+
+        public IList<PostEntity> Posts { get; set; }
     }
 }

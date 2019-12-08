@@ -67,10 +67,8 @@ namespace BlogPost.Bll.Managers
 
         public async Task<BlogDto> GetBlogWithPosts(int id)
         {
-            var entity = await _blogRepository.GetAsync(id);
-            // var entity = await _blogRepository.GetBlogWithUserAsync(id);
+            var entity = await _blogRepository.GetBlogWithPostsAsync(id);
             var blog = _mapper.Map<BlogDto>(entity);
-            //blog.User = _mapper.Map<UserDto>(entity.ApplicationUser);
 
             return blog;
         }

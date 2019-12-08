@@ -6,7 +6,7 @@ namespace BlogPost.Dal.Entities
     public class CommentEntity : Entity
     {
         public string Text { get; set; }
-        public PostEntity PostEntity { get; set; }
+        public PostEntity Post { get; set; }
 
         [ForeignKey(nameof(PostEntity))]
         public int PostId { get; set; }

@@ -36,6 +36,14 @@
         </dd>
     </dl>
 </div>
+<tbody>
+    @for (int i = 0; i < Model.Posts.Count; i++)
+    {
+            @Html.EditorFor(model => model.Posts[i].Title)
+            @Html.ValidationMessageFor(model => model.Posts[i].Title)
+    }
+</tbody>
+
 <div>
     @Html.ActionLink("Edit", "EditBlog", new { id = Model.Id }) |
     @Html.ActionLink("Add Post", "CreatePost", "Posts", new { BlogId = Model.Id })
