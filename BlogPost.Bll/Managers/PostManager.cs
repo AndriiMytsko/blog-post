@@ -28,6 +28,8 @@ namespace BlogPost.Bll.Managers
             var entity = _mapper.Map<PostEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
             entity.BlogId = dto.BlogId;
+            entity.UserId = dto.UserId;
+
             await _postRepository.AddAsync(entity);
         }
 
@@ -50,6 +52,8 @@ namespace BlogPost.Bll.Managers
         public async Task UpdatePost(PostDto dto)
         {
             var entity = _mapper.Map<PostEntity>(dto);
+            entity.UpdatedAt = DateTime.UtcNow;
+
             await _postRepository.UpdateAsync(entity);
         }
 
@@ -63,6 +67,14 @@ namespace BlogPost.Bll.Managers
             }
 
             await _postRepository.RemoveAsync(id);
+        }
+
+        public async Task<PostDto> GetPostWithComments(int id)
+        {
+            var entity = await _postRepository.GetPostWithCommentsAsync(id);
+            var post = _mapper.Map<PostDto>(entity);
+
+            return post;
         }
     }
 }

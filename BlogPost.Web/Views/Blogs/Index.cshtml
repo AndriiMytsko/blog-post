@@ -10,38 +10,20 @@
     <a asp-action="CreateBlog">Create New</a>
 </p>
 <table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    <a asp-controller="Blogs" asp-action="BlogDetails" asp-route-id="@item.Id">
+                        @item.Title
+                    </a>
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
-                </td>
-                <td>
-                    @Html.ActionLink("Details", "BlogDetails", new { id = item.Id }) |
                     @Html.ActionLink("Delete", "DeleteBlog", new { id = item.Id })
                 </td>
             </tr>
         }
     </tbody>
+
 </table>

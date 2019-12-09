@@ -50,6 +50,8 @@ namespace BlogPost.Bll.Managers
         public async Task UpdateBlog(BlogDto dto)
         {
             var entity = _mapper.Map<BlogEntity>(dto);
+            entity.UpdatedAt = DateTime.UtcNow;
+
             await _blogRepository.UpdateAsync(entity);
         }
 

@@ -16,7 +16,7 @@ namespace BlogPost.Web.Controllers
         public AccountController(
             IMapper mapper,
             IUserManager userManager)
-        : base(mapper)
+            : base(mapper)
         {
             _userManager = userManager;
         }
@@ -45,6 +45,7 @@ namespace BlogPost.Web.Controllers
         {
             var user = Mapper.Map<UserDto>(model);
             await _userManager.CreateAsync(user, model.Password);
+
             return View(model);
         }
 

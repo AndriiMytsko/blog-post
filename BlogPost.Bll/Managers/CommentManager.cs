@@ -27,6 +27,8 @@ namespace BlogPost.Bll.Managers
             var entity = _mapper.Map<CommentEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
             entity.PostId = dto.PostId;
+            entity.UserId = dto.UserId;
+
             await _commnentRepository.AddAsync(entity);
         }
 
@@ -49,6 +51,8 @@ namespace BlogPost.Bll.Managers
         public async Task UpdateComment(CommentDto dto)
         {
             var entity = _mapper.Map<CommentEntity>(dto);
+            entity.UpdatedAt = DateTime.UtcNow;
+
             await _commnentRepository.UpdateAsync(entity);
         }
 

@@ -8,23 +8,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPost.Web.Controllers
 {
-    public class PostsController : Controller
+    public class PostsController : BaseController
     {
-        private readonly IMapper _mapper;
         private readonly IPostManager _postManager;
+        private readonly IUserManager _userManager;
 
         public PostsController(
             IMapper mapper,
-            IPostManager postManager)
+            IPostManager postManager,
+            IUserManager userManager)
+        : base(mapper)
         {
-            _mapper = mapper;
             _postManager = postManager;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             var posts = await _postManager.GetAllPosts();
-            var models = _mapper.Map<IList<PostViewModel>>(posts);
+            var models = Mapper.Map<IList<PostViewModel>>(posts);
 
             return View(models);
         }
@@ -36,7 +38,9 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> ConfirmCreatePost(CreatePostViewModel post)
         {
-            var postDto = _mapper.Map<PostDto>(post);
+            var postDto = Mapper.Map<PostDto>(post);
+            postDto.UserId = GetCurrentUserId();
+
             await _postManager.CreatePost(postDto);
 
             return RedirectToAction("Index", "Home");
@@ -44,22 +48,22 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> PostDetails(PostDetailsViewModel post)
         {
-            var postDto = await _postManager.GetPost(post.Id);
-            var postModel = _mapper.Map<PostDetailsViewModel>(postDto);
+            var postDto = await _postManager.GetPostWithComments(post.Id);
+            var postModel = Mapper.Map<PostDetailsViewModel>(postDto);
             return View(postModel);
         }
 
         public async Task<IActionResult> EditPost(UpdatePostViewModel post)
         {
-            var postDto = await _postManager.GetPost(post.Id);
-            var postModel = _mapper.Map<UpdatePostViewModel>(postDto);
+            var postDto = await _postManager.GetPostWithComments(post.Id);
+            var postModel = Mapper.Map<UpdatePostViewModel>(postDto);
 
             return View(postModel);
         }
 
         public async Task<IActionResult> ConfirmEditPost(UpdatePostViewModel post)
         {
-            var postDto = _mapper.Map<PostDto>(post);
+            var postDto = Mapper.Map<PostDto>(post);
             await _postManager.UpdatePost(postDto);
 
             return RedirectToAction("Index");
@@ -68,7 +72,7 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> DeletePost(PostViewModel post)
         {
             var postDto = await _postManager.GetPost(post.Id);
-            var postModel = _mapper.Map<PostViewModel>(postDto);
+            var postModel = Mapper.Map<PostViewModel>(postDto);
 
             return View(postModel);
         }

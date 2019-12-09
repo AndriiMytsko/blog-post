@@ -14,7 +14,7 @@ namespace BlogPost.Web.Controllers
         private readonly IUserManager _userManager;
 
         public BlogsController(
-            IMapper mapper, 
+            IMapper mapper,
             IBlogManager blogManager,
             IUserManager userManager)
         : base(mapper)

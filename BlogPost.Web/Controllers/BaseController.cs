@@ -14,6 +14,7 @@ namespace BlogPost.Web.Controllers
         {
             Mapper = mapper;
         }
+
         protected int GetCurrentUserId()
         {
             var strUserId = GetClaim(ClaimTypes.NameIdentifier);

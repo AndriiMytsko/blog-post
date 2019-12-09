@@ -8,21 +8,25 @@ using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPost.Web.Controllers
 {
-    public class CommentsController : Controller
+    public class CommentsController : BaseController
     {
-        private readonly IMapper _mapper;
         private readonly ICommentManager _commentManager;
+        private readonly IUserManager _userManager;
 
-        public CommentsController(IMapper mapper, ICommentManager commentManager)
+        public CommentsController(
+            IMapper mapper,
+            ICommentManager commentManager,
+            IUserManager userManager)
+            : base(mapper)
         {
-            _mapper = mapper;
             _commentManager = commentManager;
+            _userManager = userManager;
         }
 
         public async Task<IActionResult> Index()
         {
             var comments = await _commentManager.GetAllComments();
-            var models = _mapper.Map<IList<CommentViewModel>>(comments);
+            var models = Mapper.Map<IList<CommentViewModel>>(comments);
 
             return View(models);
         }
@@ -34,7 +38,9 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> ConfirmCreateComment(CreateCommentViewModel comment)
         {
-            var commentDto = _mapper.Map<CommentDto>(comment);
+            var commentDto = Mapper.Map<CommentDto>(comment);
+            commentDto.UserId = GetCurrentUserId();
+
             await _commentManager.CreateComment(commentDto);
 
             return RedirectToAction("Index", "Home");
@@ -43,14 +49,14 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> EditComment(UpdateCommentViewModel comment)
         {
             var commentDto = await _commentManager.GetComment(comment.Id);
-            var commentModel = _mapper.Map<UpdateCommentViewModel>(commentDto);
+            var commentModel = Mapper.Map<UpdateCommentViewModel>(commentDto);
 
             return View(commentModel);
         }
 
         public async Task<IActionResult> ConfirmEditComment(UpdateCommentViewModel comment)
         {
-            var commentDto = _mapper.Map<CommentDto>(comment);
+            var commentDto = Mapper.Map<CommentDto>(comment);
             await _commentManager.UpdateComment(commentDto);
 
             return RedirectToAction("Index");
@@ -59,7 +65,7 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> DeleteComment(CommentViewModel comment)
         {
             var commentDto = await _commentManager.GetComment(comment.Id);
-            var commentModel = _mapper.Map<CommentViewModel>(commentDto);
+            var commentModel = Mapper.Map<CommentViewModel>(commentDto);
 
             return View(commentModel);
         }
