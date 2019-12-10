@@ -10,13 +10,13 @@ namespace BlogPost.Dal.Entities
         public int? PostId { get; set; }
 
         [ForeignKey(nameof(PostId))]
-        public PostEntity Post { get; set; }
+        public virtual PostEntity Post { get; set; }
 
 
         public int? UserId { get; set; }
 
         [ForeignKey(nameof(UserId))]
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
     }
 }

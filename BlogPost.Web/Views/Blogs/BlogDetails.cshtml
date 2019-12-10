@@ -4,59 +4,63 @@
     ViewData["Title"] = "BlogDetails";
 }
 
-<h1>BlogDetails</h1>
-
+<h1>Blog: @Model.Title</h1>
+<a asp-action="Index">Back to List</a>
 <div>
-    <h4>BlogViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.UserName)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-    </dl>
+    <a class="btn btn-secondary" 
+       asp-controller="Posts"
+       asp-action="CreatePost"
+       asp-route-blogid="@Model.Id">Add post</a>
 </div>
-<body>
-    <br>
-    @foreach (var post in Model.Posts)
-    {
-        <h4>@post.User.UserName</h4>
-        <h4>@post.User.Email</h4>
-        <br>
-        <h4>@post.Title</h4>
-        <br>
-        <h5>@post.Text</h5>
-    }
-</body>
 
-<div>
-    @Html.ActionLink("Edit", "EditBlog", new { id = Model.Id }) |
-    @Html.ActionLink("Add Post", "CreatePost", "Posts", new { BlogId = Model.Id })
-    <a asp-action="Index">Back to List</a>
-</div>
+<table class="table table-bordered table-hover">
+    <tbody>
+        <tr>
+            <td>
+                @Model.Id
+            </td>
+            <td>
+                @Model.Title
+            </td>
+            <td>
+                @Model.CreatedAt
+            </td>
+            <td>
+                @Model.User.UserName
+            </td>
+            <td>
+                @Html.ActionLink("Edit", "EditBlog", new { id = Model.Id }) |
+            </td>
+        </tr>
+    </tbody>
+</table>
+
+@if (Model.Posts.Any())
+{
+    <table class="table table-bordered table-hover">
+        <tbody>
+            @foreach (var post in Model.Posts)
+            {
+                <tr>
+                    <td>
+                        @post.User.UserName
+                    </td>
+                    <td>
+                        <a asp-controller="Posts"
+                           asp-action="PostDetails"
+                           asp-route-id="@post.Id">
+                            @post.Title
+                        </a>
+                    </td>
+                    <td>
+                        @post.Text
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+}
+else
+{
+
+}

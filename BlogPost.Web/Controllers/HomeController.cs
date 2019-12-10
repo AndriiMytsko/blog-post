@@ -1,14 +1,35 @@
 ﻿using System.Diagnostics;
 using Microsoft.AspNetCore.Mvc;
 using BlogPost.Web.Models;
+using BlogPost.Bll.Managers.Interfaces;
+using AutoMapper;
+using System.Threading.Tasks;
+using BlogPost.Web.Models.Blogs;
+using System.Collections.Generic;
 
 namespace BlogPost.Web.Controllers
 {
-    public class HomeController : Controller
-    { 
-        public IActionResult Index()
+    public class HomeController : BaseController
+    {
+        private readonly IBlogManager _blogManager;
+        private readonly IUserManager _userManager;
+
+        public BlogsController(
+            IMapper mapper,
+            IBlogManager blogManager,
+            IUserManager userManager)
+        : base(mapper)
         {
-            return View();
+            _blogManager = blogManager;
+            _userManager = userManager;
+        }
+
+        public async Task<IActionResult> Index()
+        {
+            var blogs = await _blogManager.GetAllBlogs();
+            var models = Mapper.Map<IList<BlogViewModel>>(blogs);
+
+            return View(models);
         }
 
         public IActionResult Privacy()

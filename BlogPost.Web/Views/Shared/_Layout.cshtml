@@ -1,8 +1,11 @@
 ﻿<!DOCTYPE html>
 <html>
 <head>
-    <meta charset="utf-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Raleway">
+    
     <title>@ViewData["Title"] - BlogPost.Web</title>
 
     <environment include="Development">
@@ -13,7 +16,7 @@
               asp-fallback-href="~/lib/bootstrap/dist/css/bootstrap.min.css"
               asp-fallback-test-class="sr-only" asp-fallback-test-property="position" asp-fallback-test-value="absolute"
               crossorigin="anonymous"
-              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T"/>
+              integrity="sha384-ggOyR0iXCbMQv3Xipma34MD+dH/1fQ784/j6cY/iJTQUOhcWr7x9JvoRxT2MZw1T" />
     </environment>
     <link rel="stylesheet" href="~/css/site.css" />
 </head>
@@ -22,11 +25,11 @@
         <nav class="navbar navbar-default navbar-fixed-top">
             <div class="container">
                 <div class="navbar-header">
-                    <a class="navbar-brand navLogo" asp-controller="Blogs" asp-action="Index">Blogs</a>
+                    <a class="navbar-brand navLogo" asp-controller="Home" asp-action="Index"></a>
                 </div>
                 <div id="navbar" class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li class="active"><a asp-controller="Home" asp-action="Index">Blogs</a></li>
+                        <li class="active"><a asp-controller="Forum" asp-action="Index">Forums</a></li>
                         @if (User.Identity.IsAuthenticated)
                         {
                             <li class="dropdown">
@@ -34,11 +37,12 @@
                                 <ul class="dropdown-menu">
                                     <li role="separator" class="divider"></li>
                                     <li class="dropdown-header">Profile</li>
-                                    <li><a asp-controller="Profile" asp-action="Detail" asp-route-id="">My Profile</a></li>
+                                    <li><a asp-controller="Profile" asp-action="Detail" asp-route-id="@User.Identity.Name">My Profile</a></li>
                                     @if (User.Identity.IsAuthenticated)
                                     {
-
-                                        <li><a asp-controller="Blogs" asp-action="Create">Create Forum</a></li>
+                                        <li role="separator" class="divider"></li>
+                                        <li class="dropdown-header">Admin</li>
+                                        <li><a asp-controller="Blogs" asp-action="Create">Create blog</a></li>
                                         <li><a asp-controller="Profile" asp-action="Index">Users</a></li>
                                     }
                                 </ul>
@@ -65,7 +69,7 @@
                             </ul>
                         </form>
                     }
-                </div>
+                </div><!--/.nav-collapse -->
             </div>
         </nav>
     </header>
@@ -81,26 +85,6 @@
             &copy; 2019 - BlogPost.Web - <a asp-area="" asp-controller="Home" asp-action="Privacy">Privacy</a>
         </div>
     </footer>
-
-    <environment include="Development">
-        <script src="~/lib/jquery/dist/jquery.js"></script>
-        <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
-    </environment>
-    <environment exclude="Development">
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"
-                asp-fallback-src="~/lib/jquery/dist/jquery.min.js"
-                asp-fallback-test="window.jQuery"
-                crossorigin="anonymous"
-                integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=">
-        </script>
-        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.bundle.min.js"
-                asp-fallback-src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"
-                asp-fallback-test="window.jQuery && window.jQuery.fn && window.jQuery.fn.modal"
-                crossorigin="anonymous"
-                integrity="sha384-xrRywqdh3PHs8keKZN+8zzc5TX0GRTLCcmivcbNJWm2rs5C8PRhcEn3czEjhAO9o">
-        </script>
-    </environment>
-    <script src="~/js/site.js" asp-append-version="true"></script>
 
     @RenderSection("Scripts", required: false)
 </body>

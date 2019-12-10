@@ -9,33 +9,20 @@
 <p>
     <a asp-action="CreatePost">Create New</a>
 </p>
-<table class="table">
-    <thead>
-        <tr>
-            <th>
-                @Html.DisplayNameFor(model => model.Id)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.Title)
-            </th>
-            <th>
-                @Html.DisplayNameFor(model => model.CreatedAt)
-            </th>
-            <th></th>
-        </tr>
-    </thead>
+
+<table class="table table-bordered table-hover">
     <tbody>
         @foreach (var item in Model)
         {
             <tr>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Id)
+                    @item.Id
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.Title)
+                    @item.Title
                 </td>
                 <td>
-                    @Html.DisplayFor(modelItem => item.CreatedAt)
+                    @item.CreatedAt
                 </td>
                 <td>
                     @Html.ActionLink("Details", "PostDetails", new { id = item.Id }) |

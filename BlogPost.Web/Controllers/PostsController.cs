@@ -46,9 +46,9 @@ namespace BlogPost.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> PostDetails(PostDetailsViewModel post)
+        public async Task<IActionResult> PostDetails(int id)
         {
-            var postDto = await _postManager.GetPostWithComments(post.Id);
+            var postDto = await _postManager.GetPostWithComments(id);
             var postModel = Mapper.Map<PostDetailsViewModel>(postDto);
             return View(postModel);
         }

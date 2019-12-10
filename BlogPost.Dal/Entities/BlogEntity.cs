@@ -10,7 +10,7 @@ namespace BlogPost.Dal.Entities
 
         public int? UserId { get; set; }
         [ForeignKey(nameof(UserId))]
-        public ApplicationUser User { get; set; }
+        public virtual ApplicationUser User { get; set; }
 
 
         public ICollection<PostEntity> Posts { get; set; }

@@ -4,57 +4,45 @@
     ViewData["Title"] = "PostDetails";
 }
 
-<h1>PostDetails</h1>
+<h1>Post: @Model.Title</h1>
+<a asp-action="Index">Back to List</a>
 
 <div>
-    <h4>PostDetails</h4>
     <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Text)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Text)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-        <dd>
-            @Html.DisplayFor(model => model.User.UserName)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.User.Email)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.User.Email)
-        </dd>
-    </dl>
+    <div class="row">
+        <div class="col-sm-2">
+            Author: @Model.User.UserName
+        </div>
+        <div class="col-sm-2">
+            @Model.CreatedAt
+        </div>
+        <div class="col-sm-10">
+            @Model.Text
+        </div>
+        <div>
+            @Html.ActionLink("Edit", "EditPost", new { id = Model.Id })
+        </div>
+        <div class="col-sm-10">
+            @Html.ActionLink("Add comment", "CreateComment", "Comments", new { PostId = Model.Id })
+        </div>
+    </div>
 </div>
-<body>
-    <br>
-    @foreach (var commnet in Model.Comments)
+
+@if (Model.Comments.Any())
+{
+    @foreach (var comment in Model.Comments)
     {
-        <h4>@commnet.Text</h4>
-        <br>
+        <div>
+            <div>
+                Author: @comment.User.UserName
+            </div>
+            <div>
+                <a asp-controller="Comments"
+                   asp-action="CommentDetails"
+                   asp-route-id="@comment.Id">
+                    @comment.Text
+                </a>
+            </div>
+        </div>
     }
-</body>
-<div>
-    @Html.ActionLink("Edit", "EditPost", new { id = Model.Id })
-    @Html.ActionLink("Add comment", "CreateComment", "Comments", new { PostId = Model.Id })
-    <a asp-action="Index">Back to List</a>
-</div>
+}
