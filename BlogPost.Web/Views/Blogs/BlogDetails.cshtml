@@ -7,10 +7,9 @@
 <h1>Blog: @Model.Title</h1>
 <a asp-action="Index">Back to List</a>
 <div>
-    <a class="btn btn-secondary" 
-       asp-controller="Posts"
-       asp-action="CreatePost"
-       asp-route-blogid="@Model.Id">Add post</a>
+    <a class="btn btn-secondary" asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id">
+    Add post
+    </a>
 </div>
 
 <table class="table table-bordered table-hover">

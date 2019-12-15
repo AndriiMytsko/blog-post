@@ -26,7 +26,6 @@ namespace BlogPost.Web.Infrastructure
 
             CreateMap<UserDto, LoginViewModel>();
             CreateMap<UserDto, RegisterViewModel>().ReverseMap();
-
             CreateMap<UserDto, UserDetailsViewModel>().ReverseMap();
         }
     }

@@ -2,6 +2,7 @@
 using BlogPost.Dal.Interfaces;
 using BlogPost.Dal.Interfaces.Repositories;
 using Microsoft.EntityFrameworkCore;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace BlogPost.Dal.Ef.Repositories
@@ -23,6 +24,15 @@ namespace BlogPost.Dal.Ef.Repositories
                 .FirstOrDefaultAsync(b => b.Id == id);
 
             return blogEntity;
+        }
+
+        public async Task<IList<BlogEntity>> GetBlogsWithUsersAsync()
+        {
+            var blogs = await DbContext.Blogs
+                .Include(b => b.User)
+                .ToListAsync();
+
+            return blogs;
         }
     }
 }

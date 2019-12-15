@@ -10,6 +10,6 @@ namespace BlogPost.Bll.DTOs
         public int UserId { get; set; }
         public UserDto User { get; set; }
 
-        public IList<PostEntity> Posts { get; set; }
+        public IEnumerable<PostEntity> Posts { get; set; }
     }
 }

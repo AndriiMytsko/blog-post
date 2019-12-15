@@ -75,6 +75,14 @@ namespace BlogPost.Bll.Managers
             return blog;
         }
 
+        public async Task<IList<BlogDto>> GetBlogsWithUsers()
+        {
+            var entity = await _blogRepository.GetBlogsWithUsersAsync();
+            var blogs = _mapper.Map<IList<BlogDto>>(entity);
+
+            return blogs;
+        }
+
         //class UserFilter
         //{
         //    public bool UserId { get; set; }

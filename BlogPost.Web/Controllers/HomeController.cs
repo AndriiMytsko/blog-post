@@ -14,7 +14,7 @@ namespace BlogPost.Web.Controllers
         private readonly IBlogManager _blogManager;
         private readonly IUserManager _userManager;
 
-        public BlogsController(
+        public HomeController(
             IMapper mapper,
             IBlogManager blogManager,
             IUserManager userManager)
@@ -26,8 +26,8 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var blogs = await _blogManager.GetAllBlogs();
-            var models = Mapper.Map<IList<BlogViewModel>>(blogs);
+            var blogs = await _blogManager.GetBlogsWithUsers();
+            var models = Mapper.Map<IEnumerable<BlogViewModel>>(blogs);
 
             return View(models);
         }

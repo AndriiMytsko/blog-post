@@ -1,16 +1,22 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model IEnumerable<BlogViewModel>
+
+@{
+    ViewData["Title"] = "BlogList";
 }
 
-<ul class="nav navbar-nav navbar-right">
-    @if (User.Identity.IsAuthenticated)
+<div class="w3-container w3-card w3-white w3-margin">
+
+    @foreach (var blog in Model)
     {
-        <li><a asp-controller="Account" asp-action="UserDetails">@User.Identity.Name</a></li>
-        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
-    }
-    else
-    {
-        <li><a asp-controller="Account" asp-action="Login">Login</a></li>
-        <li><a asp-controller="Account" asp-action="Register">Register</a></li>
-    }
-</ul>
+        <br>
+        <img src="~/images/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
+        <span class="w3-right w3-opacity">@Html.ActionLink("X", "DeleteBlog", new { id = blog.Id })</span>
+
+        <h4>@blog.User.UserName</h4>
+        <hr class="w3-clear">
+        <span class="w3-left w3-opacity">@blog.CreatedAt</span>
+
+        <p>@blog.Title</p>
+        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
+}
+</div>

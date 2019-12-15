@@ -4,20 +4,15 @@
     ViewData["Title"] = "BlogList";
 }
 
-<h1>BlogList</h1>
-
-<p>
-    <a asp-action="CreateBlog">Create New</a>
-</p>
 @foreach (var post in Model)
 {
-<div class="w3-container w3-card w3-white w3-round w3-margin">
-    <a asp-controller="Blogs" asp-action="BlogDetails" asp-route-id="@post.Id">
-        @post.Title
-    </a>
-    <span class="w3-right">@Html.ActionLink("Delete", "DeleteBlog", new { id = post.Id })</span>
-    <br>
-    <span class="w3-right">@post.CreatedAt</span>
-    <hr class="w3-clear">
-</div>
+    <div class="w3-container w3-card w3-white w3-round w3-margin">
+        <a asp-controller="Blogs" asp-action="BlogDetails" asp-route-id="@post.Id">
+            @post.Title
+        </a>
+        <span class="w3-right">@Html.ActionLink("Delete", "DeleteBlog", new { id = post.Id })</span>
+        <br>
+        <span class="w3-right">@post.CreatedAt</span>
+        <hr class="w3-clear">
+    </div>
 }

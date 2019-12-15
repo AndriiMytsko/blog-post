@@ -21,4 +21,11 @@
     <ProjectReference Include="..\BlogPost.Bll\BlogPost.Bll.csproj" />
   </ItemGroup>
 
+
+  <ItemGroup>
+    <Content Update="wwwroot\images\theme.jpg">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Content>
+  </ItemGroup>
+
 </Project>

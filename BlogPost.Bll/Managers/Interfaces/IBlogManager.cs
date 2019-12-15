@@ -12,5 +12,6 @@ namespace BlogPost.Bll.Managers.Interfaces
         Task UpdateBlog(BlogDto dto);
         Task DeleteBlog(int id);
         Task<BlogDto> GetBlogWithPosts(int id);
+        Task<IList<BlogDto>> GetBlogsWithUsers();
     }
 }
