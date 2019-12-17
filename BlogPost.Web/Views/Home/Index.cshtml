@@ -1,22 +1,44 @@
-﻿@model IEnumerable<BlogViewModel>
+﻿@model IList<PostDetailsViewModel>
 
 @{
     ViewData["Title"] = "BlogList";
 }
 
-<div class="w3-container w3-card w3-white w3-margin">
+<div class="jumbotron">
+    <div class="col-sm-8 mx-auto">
 
-    @foreach (var blog in Model)
-    {
-        <br>
-        <img src="~/images/avatar.png" alt="Avatar" class="w3-left w3-circle w3-margin-right" style="width:60px">
-        <span class="w3-right w3-opacity">@Html.ActionLink("X", "DeleteBlog", new { id = blog.Id })</span>
-
-        <h4>@blog.User.UserName</h4>
-        <hr class="w3-clear">
-        <span class="w3-left w3-opacity">@blog.CreatedAt</span>
-
-        <p>@blog.Title</p>
-        <button type="button" class="w3-button w3-theme-d2 w3-margin-bottom"><i class="fa fa-comment"></i>  Comment</button>
-}
+    </div>
 </div>
+
+<div class="row">
+    <div class="col-md-8 blog-main">
+        <div class="card-body bg-light">
+            <h4>List last posts</h4>
+
+            @foreach (var post in Model)
+            {
+                <div class="media">
+                    <div class="media-body">
+                        <button type="button" class="btn btn-default" aria-label="Left Align">
+                            <span class="" aria-hidden="true"></span>
+                        </button>
+                        <small class="float-right text-navy text-muted">@post.CreatedAt</small>
+                        <p class="text-muted">
+                            <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@post.Id"> @post.Title</a>
+                        </p>
+                        <small class="float-right text-navy text-muted">by: <a href="#">@post.User.UserName</a></small>
+                    </div>
+                </div>
+                <hr class="clearfix" />
+            }
+        </div>
+    </div><!-- /.blog-main -->
+
+    <div class="card-body col-md-4 p-0 m-0">
+        <div class="card-body bg-light">
+            @await Component.InvokeAsync("Blogs")
+        </div>
+
+    </div>
+
+</div><!-- /.row -->

@@ -12,6 +12,7 @@ namespace BlogPost.Bll.Managers.Interfaces
         Task UpdatePost(PostDto dto);
         Task DeletePost(int id);
         Task<PostDto> GetPostWithComments(int id);
+        Task<IList<PostDto>> GetPostsWithUsers();
     }
 }
 

@@ -1,4 +1,5 @@
-﻿using System.Threading.Tasks;
+﻿using System.Collections.Generic;
+using System.Threading.Tasks;
 using BlogPost.Dal.Entities;
 using BlogPost.Dal.Interfaces;
 using BlogPost.Dal.Interfaces.Repositories;
@@ -13,6 +14,15 @@ namespace BlogPost.Dal.Ef.Repositories
           BlogPostContext dbContext)
           : base(unitOfWork, dbContext)
         { }
+
+        public async Task<IList<PostEntity>> GetPostsWithUsersAsync()
+        {
+            var posts = await DbContext.Posts
+                .Include(p => p.User)
+                .ToListAsync();
+
+            return posts;
+        }
 
         public async Task<PostEntity> GetPostWithCommentsAsync(int id)
         {

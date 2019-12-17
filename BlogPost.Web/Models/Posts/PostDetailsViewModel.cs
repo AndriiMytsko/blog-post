@@ -1,5 +1,4 @@
 ﻿using BlogPost.Bll.DTOs;
-using BlogPost.Dal.Entities;
 using System;
 using System.Collections.Generic;
 

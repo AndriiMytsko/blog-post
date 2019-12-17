@@ -1,16 +1,9 @@
 ﻿@model IList<BlogViewModel>
 
-<div class="w3-container">
-    <p>Interests</p>
-    <p>
-        @foreach (var blog in Model)
-        {
+<h4 class="card-title">Blogs</h4>
 
-            <span class="w3-tag w3-small w3-theme-l1">
-                <a class="text-center" asp-controller="Blogs" asp-action="BlogDetails" asp-route-id="@blog.Id">
-                    @blog.Title
-                </a>
-            </span>
-        }
-    </p>
-</div>
+@foreach (var blog in Model)
+{
+    <a class="btn btn-outline-dark btn-sm mb-1" asp-controller="Blogs" asp-action="BlogDetails" 
+       asp-route-id="@blog.Id">@blog.Title</a>
+}

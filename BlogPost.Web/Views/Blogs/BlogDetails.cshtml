@@ -4,62 +4,45 @@
     ViewData["Title"] = "BlogDetails";
 }
 
-<h1>Blog: @Model.Title</h1>
-<a asp-action="Index">Back to List</a>
-<div>
-    <a class="btn btn-secondary" asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id">
-    Add post
-    </a>
+<button asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id" class="float-right btn btn-primary"> New post</button>
+<h1 class="h3 mb-3">
+    <a asp-action="Index">Back to List</a>
+</h1>
+
+<div class="card-body bg-light">
+    <div class="media-body">
+        <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
+        <p class="text-muted"><strong>@Model.Title</strong></p>
+        <small class=" float-right text-navy text-muted">by: <a href="#">@Model.User.UserName</a></small>
+    </div>
 </div>
 
-<table class="table table-bordered table-hover">
-    <tbody>
-        <tr>
-            <td>
-                @Model.Id
-            </td>
-            <td>
-                @Model.Title
-            </td>
-            <td>
-                @Model.CreatedAt
-            </td>
-            <td>
-                @Model.User.UserName
-            </td>
-            <td>
-                @Html.ActionLink("Edit", "EditBlog", new { id = Model.Id }) |
-            </td>
-        </tr>
-    </tbody>
-</table>
-
-@if (Model.Posts.Any())
-{
-    <table class="table table-bordered table-hover">
-        <tbody>
-            @foreach (var post in Model.Posts)
+<br>
+<div class="row">
+    <div class="col-md-12 blog-main">
+        <div class="card-body bg-light">
+            @if (Model.Posts.Any())
             {
-                <tr>
-                    <td>
-                        @post.User.UserName
-                    </td>
-                    <td>
-                        <a asp-controller="Posts"
-                           asp-action="PostDetails"
-                           asp-route-id="@post.Id">
-                            @post.Title
-                        </a>
-                    </td>
-                    <td>
-                        @post.Text
-                    </td>
-                </tr>
+                @foreach (var post in Model.Posts)
+                {
+                    <div class="media">
+                        <div class="media-body">
+                            <small class="float-right text-navy text-muted">@post.CreatedAt</small>
+                            <p class="text-muted">
+                                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@post.Id"> @post.Title</a>
+                            </p>
+                            <small class="float-right text-navy text-muted">by: <a href="#">@post.User.UserName</a></small>
+                            <br>
+                            <p>@post.Text</p>
+                        </div>
+                    </div>
+                    <hr class="clearfix">
+                }
             }
-        </tbody>
-    </table>
-}
-else
-{
-
-}
+            else
+            {
+                <p>posts = 0 </p>
+            }
+        </div>
+    </div>
+</div>

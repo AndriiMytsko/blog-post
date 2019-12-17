@@ -1,48 +1,49 @@
 ﻿@model PostDetailsViewModel
 
 @{
-    ViewData["Title"] = "PostDetails";
+    ViewData["Title"] = "BlogDetails";
 }
 
-<h1>Post: @Model.Title</h1>
-<a asp-action="Index">Back to List</a>
+<button asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id" class="float-right btn btn-primary"> New post</button>
+<h1 class="h3 mb-3">
+    <a asp-action="Index">Back to List</a>
+</h1>
+<div class="card-body bg-light">
+    <div class="media-body">
+        <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
+        <p class="text-muted"><strong>@Model.Title</strong></p>
+    </div>
+    <small class="float-right text-navy text-muted">by: <a href="#">@Model.User.UserName</a></small>
+    <p class="text-muted">
+        @Model.Text
+    </p>
+</div>
 
-<div>
-    <hr />
-    <div class="row">
-        <div class="col-sm-2">
-            Author: @Model.User.UserName
-        </div>
-        <div class="col-sm-2">
-            @Model.CreatedAt
-        </div>
-        <div class="col-sm-10">
-            @Model.Text
-        </div>
-        <div>
-            @Html.ActionLink("Edit", "EditPost", new { id = Model.Id })
-        </div>
-        <div class="col-sm-10">
-            @Html.ActionLink("Add comment", "CreateComment", "Comments", new { PostId = Model.Id })
+<br>
+<div class="row">
+    <div class="col-md-12 blog-main">
+        <div class="card-body bg-light">
+            @if (Model.Comments.Any())
+            {
+                @foreach (var comment in Model.Comments)
+                {
+                    <div class="media">
+                        <div class="media-body">
+                            <small class="float-right text-navy text-muted">@comment.CreatedAt</small>
+                            <p class="text-muted">
+                                @comment.Text
+                            </p>
+                            <small class="float-right text-navy text-muted">by: <a href="#">@comment.User.UserName</a></small>
+                            <br>
+                        </div>
+                    </div>
+                    <hr class="clearfix">
+                }
+            }
+            else
+            {
+                <p>comments = 0 </p>
+            }
         </div>
     </div>
 </div>
-
-@if (Model.Comments.Any())
-{
-    @foreach (var comment in Model.Comments)
-    {
-        <div>
-            <div>
-                Author: @comment.User.UserName
-            </div>
-            <div>
-                <a asp-controller="Comments"
-                   asp-action="CommentDetails"
-                   asp-route-id="@comment.Id">
-                    @comment.Text
-                </a>
-            </div>
-        </div>
-    }
-}
