@@ -23,14 +23,6 @@ namespace BlogPost.Web.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var posts = await _postManager.GetAllPosts();
-            var models = Mapper.Map<IList<PostViewModel>>(posts);
-
-            return View(models);
-        }
-
         public IActionResult CreatePost(int blogId)
         {
             return View(new CreatePostViewModel { BlogId = blogId });
@@ -66,7 +58,7 @@ namespace BlogPost.Web.Controllers
             var postDto = Mapper.Map<PostDto>(post);
             await _postManager.UpdatePost(postDto);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> DeletePost(PostViewModel post)
@@ -81,7 +73,7 @@ namespace BlogPost.Web.Controllers
         {
             await _postManager.DeletePost(post.Id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

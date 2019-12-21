@@ -12,7 +12,6 @@ namespace BlogPost.Dal.Entities
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; }
 
-
         public ICollection<PostEntity> Posts { get; set; }
     }
 }

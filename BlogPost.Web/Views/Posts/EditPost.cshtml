@@ -5,13 +5,11 @@
 }
 
 <h4>EditPost</h4>
-
 <div class="row">
-    <div class="col-md-4">
+    <div class="card-body bg-light">
         <form asp-action="ConfirmEditPost">
             <div asp-validation-summary="ModelOnly" class="text-danger"></div>
             <input type="hidden" asp-for="Id" />
-            <input type="hidden" asp-for="UpdatedAt" />
             <div class="form-group">
                 <label asp-for="Title" class="control-label"></label>
                 <input asp-for="Title" class="form-control" />
@@ -27,8 +25,4 @@
             </div>
         </form>
     </div>
-</div>
-
-<div>
-    <a asp-action="Index">Back to List</a>
 </div>

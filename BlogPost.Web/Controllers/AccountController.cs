@@ -22,7 +22,41 @@ namespace BlogPost.Web.Controllers
         }
 
         [HttpGet]
-        public async Task<IActionResult> UserDetails()
+        [AllowAnonymous]
+        public IActionResult Login()
+        {
+            return View();
+        }
+
+        [HttpPost]
+        [AllowAnonymous]
+        public async Task<IActionResult> ConfirmLogin(LoginViewModel model)
+        {
+            await _userManager.SignInAsync(model.Email, model.Password);
+
+            return Redirect("~/");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Logout()
+        {
+            await _userManager.SignOutAsync();
+
+            return Redirect("~/");
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> UserDetails(int id)
+        {
+            var userDto = await _userManager.GetUserDetails(id);
+
+            var user = Mapper.Map<UserDetailsViewModel>(userDto);
+
+            return View(user);
+        }
+
+        [HttpGet]
+        public async Task<IActionResult> Profile()
         {
             var userId = GetCurrentUserId();
             var userDto = await _userManager.GetUserDetails(userId);
@@ -47,30 +81,6 @@ namespace BlogPost.Web.Controllers
             await _userManager.CreateAsync(user, model.Password);
 
             return View(model);
-        }
-
-        [HttpGet]
-        [AllowAnonymous]
-        public IActionResult Login()
-        {
-            return View();
-        }
-
-        [HttpPost]
-        [AllowAnonymous]
-        public async Task<IActionResult> ConfirmLogin(LoginViewModel model)
-        {
-            await _userManager.SignInAsync(model.Email, model.Password);
-
-            return Redirect("~/");
-        }
-
-        [HttpGet]
-        public async Task<IActionResult> Logout()
-        {
-            await _userManager.SignOutAsync();
-
-            return Redirect("~/");
         }
     }
 }

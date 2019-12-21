@@ -23,14 +23,6 @@ namespace BlogPost.Web.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var blogs = await _blogManager.GetAllBlogs();
-            var models = Mapper.Map<IList<BlogViewModel>>(blogs);
-
-            return View(models);
-        }
-
         public IActionResult CreateBlog()
         {
             return View();
@@ -43,7 +35,7 @@ namespace BlogPost.Web.Controllers
             blogDto.UserId = GetCurrentUserId();
             await _blogManager.CreateBlog(blogDto);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> BlogDetails(BlogViewModel blog)
@@ -67,7 +59,7 @@ namespace BlogPost.Web.Controllers
             var blogDto = Mapper.Map<BlogDto>(blog);
             await _blogManager.UpdateBlog(blogDto);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> DeleteBlog(BlogViewModel blog)
@@ -82,7 +74,7 @@ namespace BlogPost.Web.Controllers
         {
             await _blogManager.DeleteBlog(blog.Id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }

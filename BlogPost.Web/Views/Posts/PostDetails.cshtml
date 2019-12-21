@@ -3,20 +3,43 @@
 @{
     ViewData["Title"] = "BlogDetails";
 }
-
-<button asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id" class="float-right btn btn-primary"> New post</button>
-<h1 class="h3 mb-3">
-    <a asp-action="Index">Back to List</a>
-</h1>
 <div class="card-body bg-light">
-    <div class="media-body">
-        <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
-        <p class="text-muted"><strong>@Model.Title</strong></p>
+
+    <div class="row">
+        <div class="col-1">
+            <img src="~/images/avatar.png" width="50" height="50" class="pl-1">
+            <small class="float-left text-navy text-mutedb pt-3">
+                <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
+                    <kbd>@Model.User.UserName</kbd>
+                </a>
+            </small>
+        </div>
+        <div class="col-11">
+            <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
+            <p class="text-muted">
+                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Id" class="text-monospace h6"> @Model.Title</a>
+            </p>
+
+            <br>
+            <p class="pl-4 pr-5 text-capitalize">@Model.Text</p>
+            @if (User.Identity.Name == Model.User.UserName)
+            {
+                <small class="text-navy text-muted">
+                    <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
+                        Edit
+                    </a>
+                </small>
+                <small class="text-navy text-muted">
+                    <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
+                </small>
+            }
+        </div>
     </div>
-    <small class="float-right text-navy text-muted">by: <a href="#">@Model.User.UserName</a></small>
-    <p class="text-muted">
-        @Model.Text
-    </p>
+    <div class="pt-4">
+        <p class="float-right text-navy text-muted">Comments: @Model.Comments.Count </p>
+        <a asp-controller="Comments" asp-action="CreateComment" asp-route-postid="@Model.Id" class="float-left btn btn-sm btn-outline-primary"> New comment</a>
+        <br>
+    </div>
 </div>
 
 <br>
@@ -33,16 +56,28 @@
                             <p class="text-muted">
                                 @comment.Text
                             </p>
-                            <small class="float-right text-navy text-muted">by: <a href="#">@comment.User.UserName</a></small>
+                            @if (User.Identity.Name == comment.User.UserName)
+                            {
+                                <small class="text-navy text-muted">
+                                    <a asp-controller="Comments" asp-action="EditComment" asp-route-id="@comment.Id" class="btn-edit btn-sm mr-1 mb-1">
+                                        Edit
+                                    </a>
+                                </small>
+                                <small class="text-navy text-muted">
+                                    <a asp-controller="Comments" asp-action="DeleteComment" asp-route-id="@comment.Id" class="btn-danger btn-sm">Delete</a>
+                                </small>
+                            }
+                            <small class="float-right text-navy text-muted">
+                                by:
+                                <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
+                                    <kbd>@comment.User.UserName</kbd>
+                                </a>
+                            </small>
                             <br>
                         </div>
                     </div>
                     <hr class="clearfix">
                 }
-            }
-            else
-            {
-                <p>comments = 0 </p>
             }
         </div>
     </div>

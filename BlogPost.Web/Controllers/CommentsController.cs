@@ -59,7 +59,7 @@ namespace BlogPost.Web.Controllers
             var commentDto = Mapper.Map<CommentDto>(comment);
             await _commentManager.UpdateComment(commentDto);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> DeleteComment(CommentViewModel comment)
@@ -74,7 +74,7 @@ namespace BlogPost.Web.Controllers
         {
             await _commentManager.DeleteComment(comment.Id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
