@@ -1,4 +1,17 @@
 ﻿@model UserDetailsViewModel
 
 <span>Hello @Model.UserName</span>
-<li><a asp-controller="Account" asp-action="Logout">Logout</a></li>
+<p>@Model.ProfileImage</p>
+<form asp-action="SetImage" asp-controller="Account" method="post" enctype="multipart/form-data">
+    <div>
+        <label>Upload Forum Image</label>
+        <br />
+        <label class="btn btn-default btn-file">
+            <input name="uploadedFile" type="file">
+        </label>
+
+        <input type="submit" value="Sava images" />
+    </div>
+</form>
+
+<a asp-controller="Account" asp-action="Logout">Logout</a>

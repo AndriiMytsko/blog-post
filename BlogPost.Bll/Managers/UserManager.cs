@@ -6,6 +6,7 @@ using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Dal.Identities;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
+using Microsoft.AspNetCore.Http;
 
 namespace BlogPost.Bll.Managers
 {
@@ -69,6 +70,13 @@ namespace BlogPost.Bll.Managers
             var userDto = _mapper.Map<UserDto>(user);
 
             return userDto;
+        }
+
+        public async Task SetProfileImage(int id, byte[] images)
+        {
+            var user = await _userManager.FindByIdAsync(id.ToString());
+            user.ProfileImage = images;
+            await _userManager.UpdateAsync(user);
         }
     }
 }

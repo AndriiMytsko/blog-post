@@ -2,6 +2,7 @@
 using BlogPost.Dal.Identities;
 using Microsoft.AspNetCore.Identity.EntityFrameworkCore;
 using Microsoft.EntityFrameworkCore;
+using System.IO;
 
 namespace BlogPost.Dal.Ef
 {

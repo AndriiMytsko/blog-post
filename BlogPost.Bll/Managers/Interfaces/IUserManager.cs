@@ -1,4 +1,6 @@
 ﻿using BlogPost.Bll.DTOs;
+using Microsoft.AspNetCore.Http;
+using System;
 using System.Threading.Tasks;
 
 namespace BlogPost.Bll.Managers.Interfaces
@@ -9,5 +11,6 @@ namespace BlogPost.Bll.Managers.Interfaces
         Task<UserDto> SignInAsync(string email, string password);
         Task SignOutAsync();
         Task<UserDto> GetUserDetails(int userId);
+        Task SetProfileImage(int userId, byte[] imageData);
     }
 }
