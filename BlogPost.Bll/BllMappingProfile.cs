@@ -13,6 +13,7 @@ namespace BlogPost.Bll
             CreateMap<CommentDto, CommentEntity>().ReverseMap();
             CreateMap<PostDto, PostEntity>().ReverseMap();
             CreateMap<UserDto, ApplicationUser>().ReverseMap();
+            CreateMap<ImageDto, ImageEntity>().ReverseMap();
         }
     }
 }

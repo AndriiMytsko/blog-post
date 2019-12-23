@@ -16,7 +16,6 @@
             <a asp-controller="Blogs" asp-action="CreateBlog" class="float-left btn pt-0 btn-sm btn-outline-primary">New blog</a>
             <br>
             <hr class="clearfix" />
-
             @foreach (var post in Model)
             {
                 <div class="media">
@@ -26,21 +25,18 @@
                             <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@post.Id" class="text-monospace"> @post.Title</a>
                         </p>
                         <br>
-                        @if (User.Identity.Name == post.User.UserName)
-                        {
-                            <small class="text-navy text-muted">
-                                <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@post.Id" class="btn-edit btn-sm mr-1 mb-1">
-                                    Edit
-                                </a>
-                            </small>
-                            <small class="text-navy text-muted">
-                                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" class="btn-danger btn-sm">Delete</a>
-                            </small>
-                        }
+                        <small class="text-navy text-muted">
+                            <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@post.Id" class="btn-edit btn-sm mr-1 mb-1">
+                                Edit
+                            </a>
+                        </small>
+                        <small class="text-navy text-muted">
+                            <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" class="btn-danger btn-sm">Delete</a>
+                        </small>
                         <small class="float-right text-navy text-muted">
                             by:
                             <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@post.UserId">
-                                <kbd>@post.User.UserName</kbd>
+                                @await Component.InvokeAsync("UsersName", post.UserId)
                             </a>
                         </small>
                     </div>
@@ -49,7 +45,6 @@
             }
         </div>
     </div>
-
     <div class="card-body col-md-4 pt-0">
         <div class="card-body bg-light">
             <div class="card-body">
@@ -58,5 +53,4 @@
         </div>
 
     </div>
-
-</div><!-- /.row -->
+</div>

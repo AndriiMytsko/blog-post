@@ -40,7 +40,7 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> PostDetails(int id)
         {
-            var postDto = await _postManager.GetPostWithComments(id);
+            var postDto = await _postManager.GetPost(id);
             var postModel = Mapper.Map<PostDetailsViewModel>(postDto);
             return View(postModel);
         }

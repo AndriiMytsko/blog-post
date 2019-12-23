@@ -28,6 +28,7 @@ namespace BlogPost.Web.Infrastructure.ServiceExtensions
             services.AddTransient<IBlogRepository, BlogRepository>();
             services.AddTransient<IPostRepository, PostRepository>();
             services.AddTransient<ICommnentRepository, CommentRepository>();
+            services.AddTransient<IImageRepository, ImageRepository>();
             services.AddTransient<IDbTransaction, DbTransaction>();
             services.AddTransient<IUnitOfWork, UnitOfWork<BlogPostContext>>();
 

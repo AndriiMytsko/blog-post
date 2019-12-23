@@ -5,15 +5,14 @@ using Microsoft.AspNetCore.Mvc;
 using System.Collections.Generic;
 using System.Threading.Tasks;
 
-namespace BlogPost.Web.Components
+namespace BlogPost.Web.Components.Blogs
 {
     public class BlogsViewComponent : ViewComponent
     {
         private readonly IBlogManager _blogManager;
         private readonly IMapper _mapper;
 
-        public BlogsViewComponent(IBlogManager blogManager,
-            IMapper mapper)
+        public BlogsViewComponent(IBlogManager blogManager, IMapper mapper)
         {
             _blogManager = blogManager;
             _mapper = mapper;
@@ -24,7 +23,7 @@ namespace BlogPost.Web.Components
             var blogs = await _blogManager.GetAllBlogs();
             var models = _mapper.Map<IList<BlogViewModel>>(blogs);
 
-            return View(models);
+            return View("Blogs", models);
         }
     }
 }

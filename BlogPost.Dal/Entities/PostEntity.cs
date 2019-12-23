@@ -11,9 +11,11 @@ namespace BlogPost.Dal.Entities
 
         public int? BlogId { get; set; }
         [ForeignKey(nameof(BlogId))]
+
         public virtual BlogEntity Blog { get; set; }
 
         public int? UserId { get; set; }
+
         [ForeignKey(nameof(UserId))]
         public virtual ApplicationUser User { get; set; }
 

@@ -15,15 +15,6 @@ namespace BlogPost.Dal.Ef.Repositories
           : base(unitOfWork, dbContext)
         { }
 
-        public async Task<IList<PostEntity>> GetPostsWithUsersAsync()
-        {
-            var posts = await DbContext.Posts
-                .Include(p => p.User)
-                .ToListAsync();
-
-            return posts;
-        }
-
         public async Task<PostEntity> GetPostWithCommentsAsync(int id)
         {
             var post = await DbContext.Posts

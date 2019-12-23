@@ -30,7 +30,7 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> Index()
         {
-            var posts = await _postManager.GetPostsWithUsers();
+            var posts = await _postManager.GetAllPosts();
             var models = Mapper.Map<IList<PostDetailsViewModel>>(posts);
 
             return View(models);

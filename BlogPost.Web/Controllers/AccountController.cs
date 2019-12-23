@@ -86,23 +86,14 @@ namespace BlogPost.Web.Controllers
         }
 
         [HttpPost]
-        public IActionResult SetImage(IFormFile uploadedFile)
+        public async Task<IActionResult> SetImage(IFormFile uploadedFile)
         {
-            byte[] imageData = null;
-
-            if (uploadedFile != null)
-            {
-
-                using (var binaryReader = new BinaryReader(uploadedFile.OpenReadStream()))
-                {
-                    imageData = binaryReader.ReadBytes((int)uploadedFile.Length);
-                }
-            }
-
+            var image = Mapper.Map<ImageDto>(uploadedFile);
             var userId = GetCurrentUserId();
-            _userManager.SetProfileImage(userId, imageData);
 
-            return RedirectToAction("Index");
+            await _userManager.SetProfileImageAsync(userId, image);
+
+            return RedirectToAction("Index", "Home");
         }
     }
 }

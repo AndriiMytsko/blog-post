@@ -1,15 +1,18 @@
-﻿@model UserDetailsViewModel
+﻿@using BlogPost.Web.Infrastructure
+@model UserDetailsViewModel
 
 <span>Hello @Model.UserName</span>
-<p>@Model.ProfileImage</p>
+@if (@Model.ProfileImage != null)
+{
+    @Html.Image(Model.ProfileImage);
+}
 <form asp-action="SetImage" asp-controller="Account" method="post" enctype="multipart/form-data">
     <div>
         <label>Upload Forum Image</label>
         <br />
         <label class="btn btn-default btn-file">
-            <input name="uploadedFile" type="file">
+            <input name="uploadedFile" type="file" accept=".png,.jpg,.jpeg,.gif,.tif">
         </label>
-
         <input type="submit" value="Sava images" />
     </div>
 </form>

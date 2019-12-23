@@ -11,6 +11,6 @@ namespace BlogPost.Bll.Managers.Interfaces
         Task<UserDto> SignInAsync(string email, string password);
         Task SignOutAsync();
         Task<UserDto> GetUserDetails(int userId);
-        Task SetProfileImage(int userId, byte[] imageData);
+        Task SetProfileImageAsync(int userId, ImageDto imageDto);
     }
 }

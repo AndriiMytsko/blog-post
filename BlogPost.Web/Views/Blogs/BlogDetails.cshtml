@@ -1,4 +1,5 @@
-﻿@model BlogViewModel
+﻿@using BlogPost.Web.Infrastructure
+@model BlogViewModel
 
 @{
     ViewData["Title"] = "BlogDetails";
@@ -42,19 +43,19 @@
                 {
                     <div class="row">
                         <div class="col-1">
-                            <img src="~/images/avatar.png" width="50" height="50" class="pl-1">
-                            <small class="float-left text-navy text-mutedb pt-3">
+                            @if (post.User.ProfileImage != null)
+                            {
                                 <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
-                                    <kbd>@post.User.UserName</kbd>
+
+                                    @await Component.InvokeAsync("Users", post.UserId)
                                 </a>
-                            </small>
+                            }
                         </div>
                         <div class="col-11">
                             <small class="float-right text-navy text-muted">@post.CreatedAt</small>
                             <p class="text-muted">
                                 <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@post.Id" class="text-monospace h6"> @post.Title</a>
                             </p>
-
                             <br>
                             <p class="pl-4 pr-5 text-capitalize">@post.Text</p>
                             @if (User.Identity.Name == post.User.UserName)

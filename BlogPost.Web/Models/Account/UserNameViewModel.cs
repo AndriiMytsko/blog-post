@@ -1,8 +1,7 @@
 ﻿namespace BlogPost.Web.Models.Account
 {
-    public class UserDetailsViewModel
+    public class UserNameViewModel
     {
         public string UserName { get; set; }
-        public ImageModel ProfileImage { get; set; }
     }
 }
