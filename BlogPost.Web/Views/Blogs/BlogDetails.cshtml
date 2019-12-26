@@ -10,23 +10,21 @@
         <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
         <p class="h4 text-muted"><strong>@Model.Title</strong></p>
         <br>
+
         <small class="float-right text-navy text-muted">
             by:
             <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
-                <kbd>@Model.User.UserName</kbd>
+                @await Component.InvokeAsync("UsersName", Model.UserId)
             </a>
         </small>
-        @if (User.Identity.Name == Model.User.UserName)
-        {
-            <small class="text-navy text-muted">
-                <a asp-controller="Blogs" asp-action="EditBlog" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
-                    Edit
-                </a>
-            </small>
-            <small class="text-navy text-muted">
-                <a asp-controller="Blogs" asp-action="DeleteBlog" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
-            </small>
-        }
+        <small class="text-navy text-muted">
+            <a asp-controller="Blogs" asp-action="EditBlog" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
+                Edit
+            </a>
+        </small>
+        <small class="text-navy text-muted">
+            <a asp-controller="Blogs" asp-action="DeleteBlog" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
+        </small>
         <hr class="clearfix" />
         <br>
         <a asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id" class="float-left btn btn-sm btn-outline-primary"> New post</a>
@@ -37,44 +35,7 @@
 <div class="row">
     <div class="col-md-12 blog-main">
         <div class="card-body bg-light">
-            @if (Model.Posts.Any())
-            {
-                @foreach (var post in Model.Posts)
-                {
-                    <div class="row">
-                        <div class="col-1">
-                            @if (post.User.ProfileImage != null)
-                            {
-                                <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
-
-                                    @await Component.InvokeAsync("Users", post.UserId)
-                                </a>
-                            }
-                        </div>
-                        <div class="col-11">
-                            <small class="float-right text-navy text-muted">@post.CreatedAt</small>
-                            <p class="text-muted">
-                                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@post.Id" class="text-monospace h6"> @post.Title</a>
-                            </p>
-                            <br>
-                            <p class="pl-4 pr-5 text-capitalize">@post.Text</p>
-                            @if (User.Identity.Name == post.User.UserName)
-                            {
-                                <small class="text-navy text-muted">
-                                    <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@post.Id" class="btn-edit btn-sm mr-1 mb-1">
-                                        Edit
-                                    </a>
-                                </small>
-                                <small class="text-navy text-muted">
-                                    <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" class="btn-danger btn-sm">Delete</a>
-                                </small>
-                            }
-                        </div>
-
-                    </div>
-                    <hr class="clearfix">
-                }
-            }
+            @await Component.InvokeAsync("Posts", Model.Id)
         </div>
     </div>
 </div>

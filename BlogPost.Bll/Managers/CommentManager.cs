@@ -26,8 +26,6 @@ namespace BlogPost.Bll.Managers
         {
             var entity = _mapper.Map<CommentEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
-            entity.PostId = dto.PostId;
-            entity.UserId = dto.UserId;
 
             await _commnentRepository.AddAsync(entity);
         }
@@ -40,9 +38,9 @@ namespace BlogPost.Bll.Managers
             return comment;
         }
 
-        public async Task<IList<CommentDto>> GetAllComments()
+        public async Task<IList<CommentDto>> GetComments(int postId)
         {
-            var entities = await _commnentRepository.GetAsync();
+            var entities = await _commnentRepository.CommentsAsync(postId);
             var comments = _mapper.Map<IList<CommentDto>>(entities);
 
             return comments;

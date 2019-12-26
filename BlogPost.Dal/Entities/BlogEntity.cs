@@ -8,9 +8,9 @@ namespace BlogPost.Dal.Entities
     {
         public string Title { get; set; }
 
-        public int? UserId { get; set; }
-        [ForeignKey(nameof(UserId))]
-        public virtual ApplicationUser User { get; set; }
+        public int UserId { get; set; }
+        [ForeignKey("UserId")]
+        public ApplicationUser ApplicationUser { get; set; }
 
         public ICollection<PostEntity> Posts { get; set; }
     }

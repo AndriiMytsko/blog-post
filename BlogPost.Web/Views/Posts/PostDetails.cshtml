@@ -16,21 +16,20 @@
             <p class="text-muted">
                 <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Id" class="text-monospace h6"> @Model.Title</a>
             </p>
-                <br>
-                <p class="pl-4 pr-5 text-capitalize">@Model.Text</p>
+            <br>
+            <p class="pl-4 pr-5 text-capitalize">@Model.Text</p>
 
-                <small class="text-navy text-muted">
-                    <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
-                        Edit
-                    </a>
-                </small>
-                <small class="text-navy text-muted">
-                    <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
-                </small>
-            </div>
+            <small class="text-navy text-muted">
+                <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
+                    Edit
+                </a>
+            </small>
+            <small class="text-navy text-muted">
+                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
+            </small>
+        </div>
     </div>
     <div class="pt-4">
-        <p class="float-right text-navy text-muted">Comments: @Model.Comments.Count </p>
         <a asp-controller="Comments" asp-action="CreateComment" asp-route-postid="@Model.Id" class="float-left btn btn-sm btn-outline-primary"> New comment</a>
         <br>
     </div>
@@ -39,40 +38,12 @@
 <br>
 <div class="row">
     <div class="col-md-12 blog-main">
-        <div class="card-body bg-light">
-            @if (Model.Comments.Any())
-            {
-                @foreach (var comment in Model.Comments)
-                {
-                    <div class="media">
-                        <div class="media-body">
-                            <small class="float-right text-navy text-muted">@comment.CreatedAt</small>
-                            <p class="text-muted">
-                                @comment.Text
-                            </p>
-                            @if (User.Identity.Name == comment.User.UserName)
-                            {
-                                <small class="text-navy text-muted">
-                                    <a asp-controller="Comments" asp-action="EditComment" asp-route-id="@comment.Id" class="btn-edit btn-sm mr-1 mb-1">
-                                        Edit
-                                    </a>
-                                </small>
-                                <small class="text-navy text-muted">
-                                    <a asp-controller="Comments" asp-action="DeleteComment" asp-route-id="@comment.Id" class="btn-danger btn-sm">Delete</a>
-                                </small>
-                            }
-                            <small class="float-right text-navy text-muted">
-                                by:
-                                <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
-                                    <kbd>@comment.User.UserName</kbd>
-                                </a>
-                            </small>
-                            <br>
-                        </div>
-                    </div>
-                    <hr class="clearfix">
-                }
-            }
+        <div class="card-body comm-color">
+            <div class="media">
+                <div class="media-body">
+                    @await Component.InvokeAsync("Comments", Model.Id)
+                </div>
+            </div>
         </div>
     </div>
 </div>

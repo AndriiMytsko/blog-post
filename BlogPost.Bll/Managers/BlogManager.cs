@@ -27,7 +27,7 @@ namespace BlogPost.Bll.Managers
         {
             var entity = _mapper.Map<BlogEntity>(dto);
             entity.CreatedAt = DateTime.UtcNow;
-            entity.UserId = dto.UserId;
+
             await _blogRepository.AddAsync(entity);
         }
 
@@ -66,36 +66,5 @@ namespace BlogPost.Bll.Managers
 
             await _blogRepository.RemoveAsync(id);
         }
-
-        public async Task<BlogDto> GetBlogWithPosts(int id)
-        {
-            var entity = await _blogRepository.GetBlogWithPostsAsync(id);
-            var blog = _mapper.Map<BlogDto>(entity);
-
-            return blog;
-        }
-
-        public async Task<IList<BlogDto>> GetBlogsWithUsers()
-        {
-            var entity = await _blogRepository.GetBlogsWithUsersAsync();
-            var blogs = _mapper.Map<IList<BlogDto>>(entity);
-
-            return blogs;
-        }
-
-        //class UserFilter
-        //{
-        //    public bool UserId { get; set; }
-        //    public bool IncludeUser { get; set; }
-        //}
-
-        //public BlogEntity GetBlog(int id, UserFilter filter)
-        //{
-        //    if (filter.IncludeUser)
-        //    {
-        //        return null;
-        //    }
-        //    return null;
-        //}
     }
 }

@@ -9,6 +9,5 @@ namespace BlogPost.Web.Models.Comments
         public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
         public int UserId { get; set; }
-        public UserDto User { get; set; }
     }
 }

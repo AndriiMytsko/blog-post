@@ -7,16 +7,10 @@ namespace BlogPost.Dal.Entities
     {
         public string Text { get; set; }
 
-        public int? PostId { get; set; }
-
-        [ForeignKey(nameof(PostId))]
+        [ForeignKey("PostId")]
         public virtual PostEntity Post { get; set; }
 
-
-        public int? UserId { get; set; }
-
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
-
     }
 }

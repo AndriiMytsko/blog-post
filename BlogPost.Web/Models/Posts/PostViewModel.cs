@@ -9,6 +9,6 @@ namespace BlogPost.Web.Models.Posts
         public string Title { get; set; }
         public DateTime CreatedAt { get; set; }
         public int UserId { get; set; }
-        public UserDto User { get; set; }
+        public int BlogId { get; set; }
     }
 }

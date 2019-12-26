@@ -23,23 +23,17 @@ namespace BlogPost.Web.Controllers
             _userManager = userManager;
         }
 
-        public async Task<IActionResult> Index()
-        {
-            var comments = await _commentManager.GetAllComments();
-            var models = Mapper.Map<IList<CommentViewModel>>(comments);
-
-            return View(models);
-        }
-
         public IActionResult CreateComment(int postId)
         {
-            return View(new CreateCommentViewModel { PostId = postId });
+            return View(new CreateCommentViewModel 
+            { 
+                PostId = postId });
         }
 
         public async Task<IActionResult> ConfirmCreateComment(CreateCommentViewModel comment)
         {
             var commentDto = Mapper.Map<CommentDto>(comment);
-            commentDto.UserId = GetCurrentUserId();
+            commentDto.User.Id = GetCurrentUserId();
 
             await _commentManager.CreateComment(commentDto);
 

@@ -1,0 +1,26 @@
+﻿@model IList<CommentViewModel>
+
+@foreach (var comment in Model)
+{
+    <div class="row">
+        <div class="col-1 pl-5">
+            <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@comment.UserId">
+                @await Component.InvokeAsync("Users", comment.UserId)
+            </a>
+        </div>
+        <div class="col-11 pl-5">
+            <small class="float-right text-navy text-muted">@comment.CreatedAt</small>
+            <br>
+            <p class="pl-4 pr-5 text-capitalize">@comment.Text</p>
+            <small class="text-navy text-muted">
+                <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@comment.Id" class="btn-edit btn-sm mr-1 mb-1">
+                    Edit
+                </a>
+            </small>
+            <small class="text-navy text-muted">
+                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@comment.Id" class="btn-danger btn-sm">Delete</a>
+            </small>
+        </div>
+    </div>
+    <hr class="clearfix">
+}

@@ -31,7 +31,7 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> ConfirmCreatePost(CreatePostViewModel post)
         {
             var postDto = Mapper.Map<PostDto>(post);
-            postDto.UserId = GetCurrentUserId();
+            postDto.User.Id = GetCurrentUserId();
 
             await _postManager.CreatePost(postDto);
 
@@ -47,7 +47,7 @@ namespace BlogPost.Web.Controllers
 
         public async Task<IActionResult> EditPost(UpdatePostViewModel post)
         {
-            var postDto = await _postManager.GetPostWithComments(post.Id);
+            var postDto = await _postManager.GetPost(post.Id);
             var postModel = Mapper.Map<UpdatePostViewModel>(postDto);
 
             return View(postModel);

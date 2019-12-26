@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using System.Threading.Tasks;
 using BlogPost.Dal.Entities;
 using BlogPost.Dal.Interfaces;
@@ -15,14 +16,23 @@ namespace BlogPost.Dal.Ef.Repositories
           : base(unitOfWork, dbContext)
         { }
 
-        public async Task<PostEntity> GetPostWithCommentsAsync(int id)
+        public async Task<IList<PostEntity>> GetLastPostsAsync()
         {
-            var post = await DbContext.Posts
-                    .Include(p => p.Comments)
-                    .Include(c => c.User)
-                    .FirstOrDefaultAsync(b => b.Id == id);
+            var posts = await DbContext.Posts
+                .OrderByDescending(p => p.CreatedAt)
+                .Take(10)
+                .ToListAsync();
 
-            return post;
+            return posts;
+        }
+
+        public async Task<IList<PostEntity>> PostsAsync(int blogId)
+        {
+            var posts = await DbContext.Posts
+                .Where(post => post.Blog.Id == blogId)
+                .ToListAsync();
+
+            return posts;
         }
     }
 }

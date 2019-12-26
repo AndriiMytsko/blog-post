@@ -26,21 +26,23 @@ namespace BlogPost.Web.Controllers
         public IActionResult CreateBlog()
         {
             return View();
+
         }
 
         public async Task<IActionResult> ConfirmCreateBlog(CreateBlogViewModel blog)
         {
             var blogDto = Mapper.Map<BlogDto>(blog);
+            blogDto.User.Id = GetCurrentUserId();
 
-            blogDto.UserId = GetCurrentUserId();
             await _blogManager.CreateBlog(blogDto);
+
 
             return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> BlogDetails(BlogViewModel blog)
         {
-            var blogDto = await _blogManager.GetBlogWithPosts(blog.Id);
+            var blogDto = await _blogManager.GetBlog(blog.Id);
             var blogModel = Mapper.Map<BlogViewModel>(blogDto);
 
             return View(blogModel);

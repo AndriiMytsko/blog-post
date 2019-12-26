@@ -28,9 +28,4 @@
     </Content>
   </ItemGroup>
 
-
-  <ItemGroup>
-    <Folder Include="Components\Posts\" />
-  </ItemGroup>
-
 </Project>

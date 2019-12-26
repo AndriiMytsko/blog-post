@@ -7,10 +7,7 @@ namespace BlogPost.Bll.DTOs
         public int Id { get; set; }
         public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
-
-        public int PostId { get; set; }
-
-        public int UserId { get; set; }
+        public PostDto Post { get; set; }
         public UserDto User { get; set; }
 
     }

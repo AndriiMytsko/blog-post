@@ -10,10 +10,7 @@ namespace BlogPost.Bll.DTOs
         public string Title { get; set; }
         public string Text { get; set; }
         public DateTime CreatedAt { get; set; }
-        public int BlogId { get; set; }
-        public int UserId { get; set; }
+        public BlogDto Blog { get; set; }
         public UserDto User { get; set; }
-
-        public IList<CommentEntity> Comments { get; set; }
     }
 }

@@ -6,7 +6,6 @@ using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Dal.Identities;
 using Microsoft.AspNetCore.Identity;
 using System.Threading.Tasks;
-using Microsoft.AspNetCore.Http;
 using BlogPost.Dal.Interfaces.Repositories;
 using BlogPost.Dal.Entities;
 

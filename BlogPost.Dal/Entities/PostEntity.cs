@@ -9,16 +9,12 @@ namespace BlogPost.Dal.Entities
         public string Title { get; set; }
         public string Text { get; set; }
 
-        public int? BlogId { get; set; }
-        [ForeignKey(nameof(BlogId))]
-
+        [ForeignKey("BlogId")]
         public virtual BlogEntity Blog { get; set; }
 
-        public int? UserId { get; set; }
-
-        [ForeignKey(nameof(UserId))]
+        [ForeignKey("UserId")]
         public virtual ApplicationUser User { get; set; }
 
-        public ICollection<CommentEntity> Comments { get; set; }
+        public virtual ICollection<CommentEntity> Comments { get; set; }
     }
 }
