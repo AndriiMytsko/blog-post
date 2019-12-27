@@ -9,8 +9,7 @@ namespace BlogPost.Bll
     {
         public BllMappingProfile()
         {
-            CreateMap<BlogDto, BlogEntity>()
-                .ReverseMap();
+            CreateMap<BlogDto, BlogEntity>().ReverseMap();
             CreateMap<CommentDto, CommentEntity>().ReverseMap();
             CreateMap<PostDto, PostEntity>().ReverseMap();
             CreateMap<UserDto, ApplicationUser>().ReverseMap();
