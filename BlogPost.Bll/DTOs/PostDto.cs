@@ -1,6 +1,4 @@
-﻿using BlogPost.Dal.Entities;
-using System;
-using System.Collections.Generic;
+﻿using System;
 
 namespace BlogPost.Bll.DTOs
 {

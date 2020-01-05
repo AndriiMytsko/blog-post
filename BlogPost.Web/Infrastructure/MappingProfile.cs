@@ -15,18 +15,14 @@ namespace BlogPost.Web.Infrastructure
         public MappingProfile()
         {
             CreateMap<BlogDto, BlogViewModel>().ReverseMap();
-            CreateMap<BlogDto, CreateBlogViewModel>()
-                .ForMember(dest => dest.UserId, opt => opt.MapFrom(x => x.User.Id))
-                .ReverseMap();
+            CreateMap<BlogDto, CreateBlogViewModel>().ReverseMap();
             CreateMap<BlogDto, UpdateBlogViewModel>().ReverseMap();
 
             CreateMap<CommentDto, CommentViewModel>().ReverseMap();
             CreateMap<CommentDto, CreateCommentViewModel>().ReverseMap();
             CreateMap<CommentDto, UpdateCommentViewModel>().ReverseMap();
 
-            CreateMap<PostDto, PostViewModel>()
-                .ForMember(dest => dest.BlogId, opt => opt.MapFrom(x => x.Blog.Id))
-                .ReverseMap();
+            CreateMap<PostDto, PostViewModel>().ReverseMap();
             CreateMap<PostDto, CreatePostViewModel>().ReverseMap();
             CreateMap<PostDto, UpdatePostViewModel>().ReverseMap();
             CreateMap<PostDto, PostDetailsViewModel>().ReverseMap();

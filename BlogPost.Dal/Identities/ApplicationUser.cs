@@ -1,7 +1,6 @@
 ﻿using BlogPost.Dal.Entities;
 using Microsoft.AspNetCore.Identity;
-using System.ComponentModel.DataAnnotations;
-using System.ComponentModel.DataAnnotations.Schema;
+using System.Collections.Generic;
 
 namespace BlogPost.Dal.Identities
 {
@@ -9,9 +8,10 @@ namespace BlogPost.Dal.Identities
     {
         public int? ProfileImageId { get; set; }
 
-        [ForeignKey(nameof(ProfileImageId))]
-        public virtual ImageEntity ProfileImage { get; set; }
+        public ImageEntity ProfileImage { get; set; }
 
-        public BlogEntity BlogEntity { get; set; }
+        public virtual ICollection<CommentEntity> Comments { get; set; }
+
+        public virtual ICollection<PostEntity> Posts { get; set; }
     }
 }

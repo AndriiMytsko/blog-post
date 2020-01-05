@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
+using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Posts;
 using Microsoft.AspNetCore.Mvc;
 
@@ -31,7 +31,7 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> ConfirmCreatePost(CreatePostViewModel post)
         {
             var postDto = Mapper.Map<PostDto>(post);
-            postDto.User.Id = GetCurrentUserId();
+            postDto.User = User.CreateUserDto();
 
             await _postManager.CreatePost(postDto);
 
@@ -56,6 +56,8 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> ConfirmEditPost(UpdatePostViewModel post)
         {
             var postDto = Mapper.Map<PostDto>(post);
+            postDto.User = User.CreateUserDto();
+
             await _postManager.UpdatePost(postDto);
 
             return RedirectToAction("Index", "Home");

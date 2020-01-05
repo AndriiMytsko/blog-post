@@ -1,6 +1,4 @@
-﻿using Microsoft.AspNetCore.Http;
-
-namespace BlogPost.Bll.DTOs
+﻿namespace BlogPost.Bll.DTOs
 {
     public class UserDto
     {

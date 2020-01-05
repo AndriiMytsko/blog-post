@@ -1,11 +1,11 @@
 ﻿using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
+using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Account;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
-using System.IO;
 using System.Threading.Tasks;
 
 namespace BlogPost.Web.Controllers
@@ -60,7 +60,7 @@ namespace BlogPost.Web.Controllers
         [HttpGet]
         public async Task<IActionResult> Profile()
         {
-            var userId = GetCurrentUserId();
+            var userId = User.GetId();
             var userDto = await _userManager.GetUserDetails(userId);
 
             var user = Mapper.Map<UserDetailsViewModel>(userDto);
@@ -89,7 +89,7 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> SetImage(IFormFile uploadedFile)
         {
             var image = Mapper.Map<ImageDto>(uploadedFile);
-            var userId = GetCurrentUserId();
+            var userId = User.GetId();
 
             await _userManager.SetProfileImageAsync(userId, image);
 

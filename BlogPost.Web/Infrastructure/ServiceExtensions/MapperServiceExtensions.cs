@@ -1,6 +1,5 @@
 ﻿using AutoMapper;
 using BlogPost.Bll;
-using BlogPost.Bll.DTOs;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BlogPost.Web.Infrastructure.ServiceExtensions

@@ -49,10 +49,12 @@ namespace BlogPost.Bll.Managers
 
         public async Task UpdateBlog(BlogDto dto)
         {
-            var entity = _mapper.Map<BlogEntity>(dto);
-            entity.UpdatedAt = DateTime.UtcNow;
+            var dbEntity = await _blogRepository.GetAsync(dto.Id);
 
-            await _blogRepository.UpdateAsync(entity);
+            dbEntity.Title = dto.Title;
+            dbEntity.UpdatedAt = DateTime.UtcNow;
+
+            await _blogRepository.UpdateAsync(dbEntity);
         }
 
         public async Task DeleteBlog(int id)

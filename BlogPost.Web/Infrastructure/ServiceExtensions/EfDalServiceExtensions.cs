@@ -1,5 +1,4 @@
-﻿using BlogPost.Bll.Managers;
-using BlogPost.Dal.Ef;
+﻿using BlogPost.Dal.Ef;
 using BlogPost.Dal.Ef.Repositories;
 using BlogPost.Dal.Identities;
 using BlogPost.Dal.Interfaces;

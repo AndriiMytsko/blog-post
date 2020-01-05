@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
+using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Comments;
 using Microsoft.AspNetCore.Mvc;
 
@@ -25,15 +25,18 @@ namespace BlogPost.Web.Controllers
 
         public IActionResult CreateComment(int postId)
         {
-            return View(new CreateCommentViewModel 
-            { 
-                PostId = postId });
+            var commentModel = new CreateCommentViewModel
+            {
+                PostId = postId
+            };
+
+            return View(commentModel);
         }
 
         public async Task<IActionResult> ConfirmCreateComment(CreateCommentViewModel comment)
         {
             var commentDto = Mapper.Map<CommentDto>(comment);
-            commentDto.User.Id = GetCurrentUserId();
+            commentDto.User = User.CreateUserDto();
 
             await _commentManager.CreateComment(commentDto);
 

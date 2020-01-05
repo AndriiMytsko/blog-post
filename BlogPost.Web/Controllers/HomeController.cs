@@ -4,7 +4,6 @@ using BlogPost.Web.Models;
 using BlogPost.Bll.Managers.Interfaces;
 using AutoMapper;
 using System.Threading.Tasks;
-using BlogPost.Web.Models.Blogs;
 using System.Collections.Generic;
 using BlogPost.Web.Models.Posts;
 

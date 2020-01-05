@@ -1,8 +1,8 @@
-﻿using System.Collections.Generic;
-using System.Threading.Tasks;
+﻿using System.Threading.Tasks;
 using AutoMapper;
 using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
+using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Blogs;
 using Microsoft.AspNetCore.Mvc;
 
@@ -26,16 +26,14 @@ namespace BlogPost.Web.Controllers
         public IActionResult CreateBlog()
         {
             return View();
-
         }
 
         public async Task<IActionResult> ConfirmCreateBlog(CreateBlogViewModel blog)
         {
             var blogDto = Mapper.Map<BlogDto>(blog);
-            blogDto.User.Id = GetCurrentUserId();
+            blogDto.User = User.CreateUserDto();
 
             await _blogManager.CreateBlog(blogDto);
-
 
             return RedirectToAction("Index", "Home");
         }
@@ -59,6 +57,8 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> ConfirmEditBlog(UpdateBlogViewModel blog)
         {
             var blogDto = Mapper.Map<BlogDto>(blog);
+            blogDto.User = User.CreateUserDto();
+
             await _blogManager.UpdateBlog(blogDto);
 
             return RedirectToAction("Index", "Home");
