@@ -1,0 +1,49 @@
+﻿@model PostDetailsViewModel
+
+@{
+    ViewData["Title"] = "BlogDetails";
+}
+<div class="card-body bg-light">
+
+    <div class="row">
+        <div class="col-1">
+            <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
+                @await Component.InvokeAsync("Users", Model.UserId)
+            </a>
+        </div>
+        <div class="col-11">
+            <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
+            <p class="text-muted">
+                <a asp-controller="Posts" asp-action="PostDetails" asp-route-id="@Model.Id" class="text-monospace h6"> @Model.Title</a>
+            </p>
+            <br>
+            <p class="pl-4 pr-5 text-capitalize">@Model.Text</p>
+
+            <small class="text-navy text-muted">
+                <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
+                    Edit
+                </a>
+            </small>
+            <small class="text-navy text-muted">
+                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
+            </small>
+        </div>
+    </div>
+    <div class="pt-4">
+        <a asp-controller="Comments" asp-action="CreateComment" asp-route-postid="@Model.Id" class="float-left btn btn-sm btn-outline-primary"> New comment</a>
+        <br>
+    </div>
+</div>
+
+<br>
+<div class="row">
+    <div class="col-md-12 blog-main">
+        <div class="card-body comm-color">
+            <div class="media">
+                <div class="media-body">
+                    @await Component.InvokeAsync("Comments", Model.Id)
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

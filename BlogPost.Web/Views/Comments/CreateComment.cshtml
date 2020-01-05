@@ -1,0 +1,27 @@
+﻿@model CreateCommentViewModel
+
+@{
+    ViewData["Title"] = "CreateComment";
+}
+<h4>Let's Create a New comment :)</h4>
+<hr />
+<div class="row">
+    <div class="card-body bg-light ">
+        <form asp-action="ConfirmCreateComment">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="PostId" type="hidden" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" placeholder="Enter Text" type="text" class="form-control-lg form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}

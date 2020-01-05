@@ -1,36 +1,41 @@
-﻿@model BlogViewModel
+﻿@using BlogPost.Web.Infrastructure
+@model BlogViewModel
 
 @{
     ViewData["Title"] = "BlogDetails";
 }
 
-<h1>BlogDetails</h1>
+<div class="card-body bg-light">
+    <div class="card-body">
+        <small class="float-right text-navy text-muted">@Model.CreatedAt</small>
+        <p class="h4 text-muted"><strong>@Model.Title</strong></p>
+        <br>
 
-<div>
-    <h4>BlogViewModel</h4>
-    <hr />
-    <dl class="row">
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Id)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Id)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.Title)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.Title)
-        </dd>
-        <dt class="col-sm-2">
-            @Html.DisplayNameFor(model => model.CreatedAt)
-        </dt>
-        <dd class="col-sm-10">
-            @Html.DisplayFor(model => model.CreatedAt)
-        </dd>
-    </dl>
+        <small class="float-right text-navy text-muted">
+            by:
+            <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
+                @await Component.InvokeAsync("UsersName", Model.UserId)
+            </a>
+        </small>
+        <small class="text-navy text-muted">
+            <a asp-controller="Blogs" asp-action="EditBlog" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
+                Edit
+            </a>
+        </small>
+        <small class="text-navy text-muted">
+            <a asp-controller="Blogs" asp-action="DeleteBlog" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
+        </small>
+        <hr class="clearfix" />
+        <br>
+        <a asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id" class="float-left btn btn-sm btn-outline-primary"> New post</a>
+    </div>
 </div>
-<div>
-    @Html.ActionLink("Edit", "EditBlog", new { id = Model.Id }) |
-    <a asp-action="Index">Back to List</a>
+
+<br>
+<div class="row">
+    <div class="col-md-12 blog-main">
+        <div class="card-body bg-light">
+            @await Component.InvokeAsync("Posts", Model.Id)
+        </div>
+    </div>
 </div>

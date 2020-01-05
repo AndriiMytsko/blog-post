@@ -40,14 +40,16 @@ namespace BlogPost.Dal.Ef.Repositories
 
         public virtual async Task AddAsync(TEntity entity)
         {
-            DbSet.Add(entity);
+            DbSet.Attach(entity);
+            DbContext.Entry(entity).State = EntityState.Added;
 
             await DbContext.SaveChangesAsync();
         }
 
         public virtual async Task UpdateAsync(TEntity entity)
         {
-            DbContext.Update(entity);
+            DbSet.Attach(entity);
+            DbContext.Entry(entity).State = EntityState.Modified;
 
             await DbContext.SaveChangesAsync();
         }

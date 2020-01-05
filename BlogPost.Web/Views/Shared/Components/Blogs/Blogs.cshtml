@@ -1,0 +1,9 @@
+﻿@model IList<BlogViewModel>
+
+<h4 class="card-title text-monospace text-black-50">Blogs</h4>
+
+@foreach (var blog in Model)
+{
+    <a class="btn btn-outline-dark btn-sm mb-1" asp-controller="Blogs" asp-action="BlogDetails"
+       asp-route-id="@blog.Id">@blog.Title</a>
+}

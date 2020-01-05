@@ -1,0 +1,33 @@
+﻿@model CreatePostViewModel
+
+@{
+    ViewData["Title"] = "NewPost";
+}
+
+<h4>Let's Create a New post :)</h4>
+<hr />
+<div class="row">
+    <div class="card-body bg-light ">
+        <form asp-action="ConfirmCreatePost">
+            <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+            <input asp-for="BlogId" type="hidden" class="form-control" />
+            <div class="form-group">
+                <label asp-for="Title" class="control-label"></label>
+                <input asp-for="Title" placeholder="Enter title" type="text" class="form-control-lg form-control" />
+                <span asp-validation-for="Title" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <label asp-for="Text" class="control-label"></label>
+                <input asp-for="Text" placeholder="Enter Text" type="text" class="form-control-lg form-control" />
+                <span asp-validation-for="Text" class="text-danger"></span>
+            </div>
+            <div class="form-group">
+                <input type="submit" value="Create" class="btn btn-primary" />
+            </div>
+        </form>
+    </div>
+</div>
+
+@section Scripts {
+    @{await Html.RenderPartialAsync("_ValidationScriptsPartial");}
+}
