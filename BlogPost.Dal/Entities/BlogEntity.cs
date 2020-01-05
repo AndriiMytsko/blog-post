@@ -1,6 +1,5 @@
 ﻿using BlogPost.Dal.Identities;
 using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
 using System.ComponentModel.DataAnnotations.Schema;
 
 namespace BlogPost.Dal.Entities
