@@ -11,26 +11,23 @@ namespace BlogPost.Web.Controllers
     public class CommentsController : BaseController
     {
         private readonly ICommentManager _commentManager;
-        private readonly IUserManager _userManager;
 
         public CommentsController(
             IMapper mapper,
-            ICommentManager commentManager,
-            IUserManager userManager)
+            ICommentManager commentManager)
             : base(mapper)
         {
             _commentManager = commentManager;
-            _userManager = userManager;
         }
 
         public IActionResult CreateComment(int postId)
         {
-            var commentModel = new CreateCommentViewModel
+            var model = new CreateCommentViewModel
             {
                 PostId = postId
             };
 
-            return View(commentModel);
+            return View("CreateComment", model);
         }
 
         public async Task<IActionResult> ConfirmCreateComment(CreateCommentViewModel comment)
@@ -46,14 +43,19 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> EditComment(UpdateCommentViewModel comment)
         {
             var commentDto = await _commentManager.GetComment(comment.Id);
-            var commentModel = Mapper.Map<UpdateCommentViewModel>(commentDto);
+            if(commentDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<UpdateCommentViewModel>(commentDto);
 
-            return View(commentModel);
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmEditComment(UpdateCommentViewModel comment)
         {
             var commentDto = Mapper.Map<CommentDto>(comment);
+            commentDto.User = User.CreateUserDto();
             await _commentManager.UpdateComment(commentDto);
 
             return RedirectToAction("Index", "Home");
@@ -62,9 +64,13 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> DeleteComment(CommentViewModel comment)
         {
             var commentDto = await _commentManager.GetComment(comment.Id);
-            var commentModel = Mapper.Map<CommentViewModel>(commentDto);
+            if(commentDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<CommentViewModel>(commentDto);
 
-            return View(commentModel);
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmDeleteComment(CommentViewModel comment)

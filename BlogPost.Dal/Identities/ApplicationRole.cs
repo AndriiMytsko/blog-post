@@ -2,7 +2,7 @@
 
 namespace BlogPost.Dal.Identities
 {
-    public class ApplicationRole: IdentityRole<int>
+    public class ApplicationRole : IdentityRole<int>
     {
     }
 }

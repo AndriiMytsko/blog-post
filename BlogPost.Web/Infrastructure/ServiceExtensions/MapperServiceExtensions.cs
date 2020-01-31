@@ -1,5 +1,6 @@
 ﻿using AutoMapper;
 using BlogPost.Bll;
+using Microsoft.AspNetCore.Identity;
 using Microsoft.Extensions.DependencyInjection;
 
 namespace BlogPost.Web.Infrastructure.ServiceExtensions

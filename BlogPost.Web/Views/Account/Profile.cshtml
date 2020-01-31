@@ -1,20 +1,27 @@
 ﻿@using BlogPost.Web.Infrastructure
 @model UserDetailsViewModel
 
-<span>Hello @Model.UserName</span>
-@if (@Model.ProfileImage != null)
-{
-    @Html.Image(Model.ProfileImage);
-}
-<form asp-action="SetImage" asp-controller="Account" method="post" enctype="multipart/form-data">
-    <div>
-        <label>Upload Forum Image</label>
-        <br />
-        <label class="btn btn-default btn-file">
-            <input name="uploadedFile" type="file" accept=".png,.jpg,.jpeg,.gif,.tif">
-        </label>
-        <input type="submit" value="Sava images" />
+<div class="card-body bg-light">
+    <div class="row">
+        <div class="col-11">
+            @if (@Model.ProfileImage != null)
+            {
+                @Html.Image(Model.ProfileImage);
+            }
+            <span>@Model.UserName</span>
+        </div>
     </div>
-</form>
-
-<a asp-controller="Account" asp-action="Logout">Logout</a>
+    <div class="pt-4">
+        <form asp-action="SetImage" asp-controller="Account" method="post" enctype="multipart/form-data">
+            <div>
+                <label>Upload Forum Image</label>
+                <br />
+                <label class="btn btn-default btn-file">
+                    <input name="uploadedFile" type="file" accept=".png,.jpg,.jpeg,.gif,.tif">
+                </label>
+                <input type="submit" value="Sava images" />
+            </div>
+        </form>
+    </div>
+    <a asp-controller="Account" asp-action="ChangePassword">ChangePassword</a>
+</div>

@@ -4,7 +4,6 @@
     ViewData["Title"] = "BlogDetails";
 }
 <div class="card-body bg-light">
-
     <div class="row">
         <div class="col-1">
             <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@Model.UserId">
@@ -18,14 +17,10 @@
             </p>
             <br>
             <p class="pl-4 pr-5 text-capitalize">@Model.Text</p>
-
             <small class="text-navy text-muted">
                 <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@Model.Id" class="btn-edit btn-sm mr-1 mb-1">
                     Edit
                 </a>
-            </small>
-            <small class="text-navy text-muted">
-                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
             </small>
         </div>
     </div>
@@ -34,7 +29,6 @@
         <br>
     </div>
 </div>
-
 <br>
 <div class="row">
     <div class="col-md-12 blog-main">

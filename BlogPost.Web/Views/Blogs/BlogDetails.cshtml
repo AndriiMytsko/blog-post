@@ -22,9 +22,6 @@
                 Edit
             </a>
         </small>
-        <small class="text-navy text-muted">
-            <a asp-controller="Blogs" asp-action="DeleteBlog" asp-route-id="@Model.Id" class="btn-danger btn-sm">Delete</a>
-        </small>
         <hr class="clearfix" />
         <br>
         <a asp-controller="Posts" asp-action="CreatePost" asp-route-blogid="@Model.Id" class="float-left btn btn-sm btn-outline-primary"> New post</a>

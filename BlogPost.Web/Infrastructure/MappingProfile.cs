@@ -7,6 +7,8 @@ using BlogPost.Web.Models.Account;
 using Microsoft.AspNetCore.Http;
 using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models;
+using BlogPost.Web.Models.Users;
+using BlogPost.Web.Models.Roles;
 
 namespace BlogPost.Web.Infrastructure
 {
@@ -29,8 +31,16 @@ namespace BlogPost.Web.Infrastructure
 
             CreateMap<UserDto, LoginViewModel>();
             CreateMap<UserDto, RegisterViewModel>().ReverseMap();
+            CreateMap<UserDto, ForgotPasswordViewModel>().ReverseMap();
+            CreateMap<UserDto, ChangePasswordViewModel>().ReverseMap();
             CreateMap<UserDto, UserDetailsViewModel>().ReverseMap();
             CreateMap<UserDto, UserNameViewModel>().ReverseMap();
+            CreateMap<UserDto, UserViewModel>().ReverseMap();
+            CreateMap<UserDto, UserNameAndEmailViewModel>().ReverseMap();
+
+
+            CreateMap<RoleDto, ChangeRoleViewModel>().ReverseMap();
+            CreateMap<RoleDto, RoleViewModel>().ReverseMap();
 
             CreateMap<IFormFile, ImageDto>()
                 .ForMember(dest => dest.Content, opt => opt.MapFrom(x => x.ToByteArray()))
