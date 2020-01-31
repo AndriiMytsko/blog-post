@@ -30,14 +30,18 @@
                                 Edit
                             </a>
                         </small>
-                        <small class="text-navy text-muted">
-                            <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@post.Id" class="btn-danger btn-sm">Delete</a>
-                        </small>
                         <small class="float-right text-navy text-muted">
                             by:
-                            <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@post.UserId">
+                            @if (post.UserId != null)
+                            {
+                                <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@post.UserId">
+                                    @await Component.InvokeAsync("UsersName", post.UserId)
+                                </a>
+                            }
+                            else
+                            {
                                 @await Component.InvokeAsync("UsersName", post.UserId)
-                            </a>
+                            }
                         </small>
                     </div>
                 </div>

@@ -17,9 +17,14 @@ namespace BlogPost.Web.Components.Users
             _mapper = mapper;
         }
 
-        public async Task<IViewComponentResult> InvokeAsync(int userId)
+        public async Task<IViewComponentResult> InvokeAsync(int? userId)
         {
-            var user = await _userManager.GetUserDetails(userId);
+            if(!userId.HasValue)
+            {
+                return View("UserNameDefault");
+            }
+
+            var user = await _userManager.GetUserNameAsync(userId.Value);
             var model = _mapper.Map<UserNameViewModel>(user);
 
             return View("UserName", model);

@@ -1,0 +1,63 @@
+﻿@using BlogPost.Web.Infrastructure
+@model IList<UserViewModel>
+
+@foreach (var user in Model)
+{
+    <div class="row">
+        <div class="col-md-12 blog-main">
+            <div class="card-body bg-light">
+                <div class="row">
+                    <div class="col-1">
+                        @if (user.ProfileImage != null)
+                        {
+                            @Html.Image(user.ProfileImage);
+                        }
+                    </div>
+                    <div class="col-8">
+                        <div class="pt-2">
+                            <kbd class="ml-2">@user.UserName</kbd>
+                        </div>
+                    </div>
+                    <div class="col-3">
+                        <div class="pt-2">
+                            <small class="text-navy text-muted">
+                                <a asp-controller="Account" asp-action="UserDetails" asp-route-id="@user.Id" class="btn-edit btn-sm mr-1 mb-1">
+                                    Details
+                                </a>
+                            </small>
+                            <small class="text-navy text-muted">
+                                <button class="btn-danger btn-sm mr-1 mb-1" data-toggle="modal" data-target="#exampleModal">
+                                    Delete
+                                </button>
+                            </small>
+
+                            <!-- Modal -->
+                            <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                                <div class="modal-dialog" role="document">
+                                    <div class="modal-content">
+                                        <div class="modal-header">
+                                            <h5 class="modal-title" id="exampleModalLabel">Delete user?</h5>
+                                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                                <span aria-hidden="true">&times;</span>
+                                            </button>
+                                        </div>
+                                        <div class="modal-footer">
+                                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                            <form asp-controller="Admin" asp-action="DeleteUser" asp-route-id="@user.Id">
+                                                <button type="submit" class="btn btn-danger">
+                                                    Delete
+                                                 </button>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+
+                        </div>
+                    </div>
+                </div>
+                <hr class="clearfix">
+            </div>
+        </div>
+    </div>
+}

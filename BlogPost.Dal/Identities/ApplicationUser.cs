@@ -13,5 +13,7 @@ namespace BlogPost.Dal.Identities
         public virtual ICollection<CommentEntity> Comments { get; set; }
 
         public virtual ICollection<PostEntity> Posts { get; set; }
+
+        public virtual ICollection<BlogEntity> Blogs { get; set; }
     }
 }

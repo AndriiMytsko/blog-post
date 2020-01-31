@@ -11,21 +11,21 @@ namespace BlogPost.Web.Controllers
     public class PostsController : BaseController
     {
         private readonly IPostManager _postManager;
-        private readonly IUserManager _userManager;
 
         public PostsController(
             IMapper mapper,
-            IPostManager postManager,
-            IUserManager userManager)
+            IPostManager postManager)
         : base(mapper)
         {
             _postManager = postManager;
-            _userManager = userManager;
         }
 
         public IActionResult CreatePost(int blogId)
         {
-            return View(new CreatePostViewModel { BlogId = blogId });
+            return View(new CreatePostViewModel 
+            { 
+                BlogId = blogId 
+            });
         }
 
         public async Task<IActionResult> ConfirmCreatePost(CreatePostViewModel post)
@@ -38,44 +38,56 @@ namespace BlogPost.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
-        public async Task<IActionResult> PostDetails(int id)
+        public async Task<IActionResult> PostDetails(int? id)
         {
-            var postDto = await _postManager.GetPost(id);
-            var postModel = Mapper.Map<PostDetailsViewModel>(postDto);
-            return View(postModel);
+            var postDto = await _postManager.GetPost(id.Value);
+            if (postDto == null)
+            {
+                return NotFound();
+            }
+
+            var model = Mapper.Map<PostDetailsViewModel>(postDto);
+            return View("PostDetails", model);
         }
 
         public async Task<IActionResult> EditPost(UpdatePostViewModel post)
         {
             var postDto = await _postManager.GetPost(post.Id);
-            var postModel = Mapper.Map<UpdatePostViewModel>(postDto);
+            if (postDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<UpdatePostViewModel>(postDto);
 
-            return View(postModel);
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmEditPost(UpdatePostViewModel post)
         {
             var postDto = Mapper.Map<PostDto>(post);
             postDto.User = User.CreateUserDto();
-
             await _postManager.UpdatePost(postDto);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
 
         public async Task<IActionResult> DeletePost(PostViewModel post)
         {
             var postDto = await _postManager.GetPost(post.Id);
-            var postModel = Mapper.Map<PostViewModel>(postDto);
+            if(postDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<PostViewModel>(postDto);
 
-            return View(postModel);
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmDeletePost(PostViewModel post)
         {
             await _postManager.DeletePost(post.Id);
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Index");
         }
     }
 }

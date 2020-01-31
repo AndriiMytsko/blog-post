@@ -11,28 +11,26 @@ namespace BlogPost.Web.Controllers
     public class BlogsController : BaseController
     {
         private readonly IBlogManager _blogManager;
-        private readonly IUserManager _userManager;
 
         public BlogsController(
             IMapper mapper,
-            IBlogManager blogManager,
-            IUserManager userManager)
+            IBlogManager blogManager)
         : base(mapper)
         {
             _blogManager = blogManager;
-            _userManager = userManager;
         }
 
         public IActionResult CreateBlog()
         {
-            return View();
+            return View("CreateBlog");
         }
 
+        [HttpPost]
         public async Task<IActionResult> ConfirmCreateBlog(CreateBlogViewModel blog)
         {
             var blogDto = Mapper.Map<BlogDto>(blog);
-            blogDto.User = User.CreateUserDto();
 
+            blogDto.User = User.CreateUserDto();
             await _blogManager.CreateBlog(blogDto);
 
             return RedirectToAction("Index", "Home");
@@ -41,17 +39,25 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> BlogDetails(BlogViewModel blog)
         {
             var blogDto = await _blogManager.GetBlog(blog.Id);
-            var blogModel = Mapper.Map<BlogViewModel>(blogDto);
+            if (blogDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<BlogViewModel>(blogDto);
 
-            return View(blogModel);
+            return View("BlogDetails", model);
         }
 
         public async Task<IActionResult> EditBlog(UpdateBlogViewModel blog)
         {
             var blogDto = await _blogManager.GetBlog(blog.Id);
-            var blogModel = Mapper.Map<UpdateBlogViewModel>(blogDto);
+            if (blogDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<UpdateBlogViewModel>(blogDto);
 
-            return View(blogModel);
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmEditBlog(UpdateBlogViewModel blog)
@@ -67,9 +73,13 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> DeleteBlog(BlogViewModel blog)
         {
             var blogDto = await _blogManager.GetBlog(blog.Id);
-            var blogModel = Mapper.Map<BlogViewModel>(blogDto);
+            if (blogDto == null)
+            {
+                return NotFound();
+            }
+            var model = Mapper.Map<BlogViewModel>(blogDto);
 
-            return View(blogModel);
+            return View(model);
         }
 
         public async Task<IActionResult> ConfirmDeleteBlog(BlogViewModel blog)

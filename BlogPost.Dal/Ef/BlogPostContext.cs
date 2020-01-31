@@ -18,6 +18,8 @@ namespace BlogPost.Dal.Ef
         public DbSet<CommentEntity> Comments { get; set; }
         public DbSet<ImageEntity> Images { get; set; }
 
+
+
         protected override void OnModelCreating(ModelBuilder builder)
         {
             base.OnModelCreating(builder);
@@ -33,14 +35,19 @@ namespace BlogPost.Dal.Ef
                 .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<ApplicationUser>()
-    .HasMany(e => e.Comments)
-    .WithOne(e => e.User)
-    .OnDelete(DeleteBehavior.SetNull);
+                .HasMany(u => u.Comments)
+                .WithOne(c => c.User)
+                .OnDelete(DeleteBehavior.SetNull);
 
             builder.Entity<ApplicationUser>()
-               .HasMany(e => e.Posts)
-               .WithOne(e => e.User)
+               .HasMany(u => u.Posts)
+               .WithOne(p => p.User)
                .OnDelete(DeleteBehavior.SetNull);
+
+            builder.Entity<ApplicationUser>()
+                .HasMany(u => u.Blogs)
+                .WithOne(b => b.User)
+                .OnDelete(DeleteBehavior.SetNull);
         }
     }
 }

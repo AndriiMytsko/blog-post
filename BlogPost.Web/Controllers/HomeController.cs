@@ -11,28 +11,21 @@ namespace BlogPost.Web.Controllers
 {
     public class HomeController : BaseController
     {
-        private readonly IBlogManager _blogManager;
         private readonly IPostManager _postManager;
-        private readonly IUserManager _userManager;
 
-        public HomeController(
-            IMapper mapper,
-            IBlogManager blogManager,
-             IPostManager postManager,
-            IUserManager userManager)
-        : base(mapper)
+        public HomeController(IMapper mapper,IPostManager postManager)
+            : base(mapper)
         {
-            _blogManager = blogManager;
             _postManager = postManager;
-            _userManager = userManager;
         }
 
+        [HttpGet]
         public async Task<IActionResult> Index()
         {
             var posts = await _postManager.GetLastPosts();
             var models = Mapper.Map<IList<PostViewModel>>(posts);
 
-            return View(models);
+            return View("Index", models);
         }
 
         public IActionResult Privacy()
