@@ -13,12 +13,12 @@
             <br>
             <p class="pl-4 pr-5 text-capitalize">@comment.Text</p>
             <small class="text-navy text-muted">
-                <a asp-controller="Posts" asp-action="EditPost" asp-route-id="@comment.Id" class="btn-edit btn-sm mr-1 mb-1">
+                <a asp-controller="Comments" asp-action="EditComment" asp-route-id="@comment.Id" class="btn-edit btn-sm mr-1 mb-1">
                     Edit
                 </a>
             </small>
             <small class="text-navy text-muted">
-                <a asp-controller="Posts" asp-action="DeletePost" asp-route-id="@comment.Id" class="btn-danger btn-sm">Delete</a>
+                <a asp-controller="Comments" asp-action="DeleteComment" asp-route-id="@comment.Id" class="btn-danger btn-sm">Delete</a>
             </small>
         </div>
     </div>

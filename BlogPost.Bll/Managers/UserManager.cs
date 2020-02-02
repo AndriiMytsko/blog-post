@@ -187,7 +187,7 @@ namespace BlogPost.Bll.Managers
         {
             var user = await _userManager.FindByEmailAsync(email);
 
-            if(user != null)
+            if (user != null)
             {
                 return false;
             }

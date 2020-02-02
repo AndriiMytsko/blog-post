@@ -24,7 +24,7 @@ namespace BlogPost.Bll.Managers
             emailMessage.Subject = subject;
             emailMessage.Body = new TextPart(MimeKit.Text.TextFormat.Html)
             {
-                Text = $"Для сброса пароля пройдите по ссылке: <a href='{message}'>link</a>"
+                Text = $"Для скидання пароля перейдіть за посиланнями: <a href='{message}'>link</a>"
             };
 
             using (var client = _smptClientFactory())

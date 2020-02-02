@@ -76,7 +76,7 @@ namespace BlogPost.Web.Controllers
             }
 
             var userDto = await _userManager.GetUserDetailsAsync(id.Value);
-            if(userDto == null)
+            if (userDto == null)
             {
                 return NotFound();
             }
@@ -90,7 +90,7 @@ namespace BlogPost.Web.Controllers
         public async Task<IActionResult> Profile()
         {
             var userId = User.GetId();
-            
+
             var userDto = await _userManager.GetUserDetailsAsync(userId);
 
             var user = Mapper.Map<UserDetailsViewModel>(userDto);
@@ -102,7 +102,7 @@ namespace BlogPost.Web.Controllers
         [AllowAnonymous]
         public IActionResult Register()
         {
-            return View("Register");
+            return View();
         }
 
         [HttpPost]
@@ -118,10 +118,9 @@ namespace BlogPost.Web.Controllers
 
                 var callbackUrl = Url.EmailConfirmationLink(userId.ToString(), code, HttpContext.Request.Scheme);
 
-                await _emailManager.SendEmailAsync(model.Email, "Confirm your account",
-                    $"Подтвердите регистрацию, перейдя по ссылке: <a href='{callbackUrl}'>link</a>");
+                await _emailManager.SendEmailAsync(model.Email, "Confirm your account", callbackUrl);
 
-                return Content("Для завершения регистрации проверьте электронную почту и перейдите по ссылке, указанной в письме");
+                return Content("Для завершення реєстрації перевірити електронну пошту та перейдіть за посиланнями, вказаними в письмі");
             }
 
             return RedirectToAction("Home", "Index", model);
@@ -145,7 +144,7 @@ namespace BlogPost.Web.Controllers
         [AllowAnonymous]
         public IActionResult ForgotPassword()
         {
-            return View("ForgotPassword");
+            return View();
         }
 
         [HttpPost]
@@ -155,7 +154,7 @@ namespace BlogPost.Web.Controllers
         {
 
             var user = await _userManager.GetUserEmailAsync(model.Email);
-            if(user == null)
+            if (user == null)
             {
                 return NotFound();
             }
@@ -219,15 +218,12 @@ namespace BlogPost.Web.Controllers
             {
                 return RedirectToAction("Index", "Home", model);
             }
-            else
+            foreach (var error in result.Errors)
             {
-                foreach (var error in result.Errors)
-                {
-                    ModelState.AddModelError(string.Empty, error.Description);
-                }
+                ModelState.AddModelError(string.Empty, error.Description);
             }
 
-            return RedirectToAction("Index", "Home");
+            return RedirectToAction("Error");  
         }
 
         [HttpPost]

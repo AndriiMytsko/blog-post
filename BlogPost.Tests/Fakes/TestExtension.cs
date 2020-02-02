@@ -29,10 +29,9 @@ namespace BlogPost.Tests.Fakes
             return user;
         }
 
-        public static string ResetPasswordCallbackLink(this ControllerBase controller, string userId, string code, string scheme)
-        {
-            string url = "TestUrl";
-            return url;
-        }
+        //public static string UrlReturn(this ControllerBase controller)
+        //{
+
+        //}
     }
 }

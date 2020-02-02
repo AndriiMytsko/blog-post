@@ -5,10 +5,9 @@ using BlogPost.Tests.Fakes;
 using BlogPost.Web.Controllers;
 using BlogPost.Web.Infrastructure;
 using BlogPost.Web.Models.Account;
-using BlogPost.Web.Models.Users;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Routing;
 using Moq;
-using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xunit;
 
@@ -161,11 +160,11 @@ namespace BlogPost.Tests
             Assert.True(viewResult.ViewName == "Register");
         }
 
-        [Fact]
-        public async Task Register_Ok()
-        {
+        //[Fact]
+        //public async Task Register_Ok()
+        //{
 
-        }
+        //}
 
         [Fact]
         public async Task ConfirmEmail_ReturnResult_Model_ViewName_Ok()
@@ -202,11 +201,6 @@ namespace BlogPost.Tests
         [Fact]
         public async Task ForgotPassword_UserNotFound()
         {
-            Mock<IUrlHelper> urlHelperMock = new Mock<IUrlHelper>();
-            urlHelperMock.Setup(x => 
-            x.Content(It.IsAny<string>()))
-                .Returns<string>(x => "~/" + x);
-
             _userManager.Setup(x => x.GetUserEmailAsync("email@gmail.com"))
                 .ReturnsAsync(null as UserDto);
 
@@ -214,5 +208,21 @@ namespace BlogPost.Tests
 
             var viewResult = Assert.IsType<NotFoundResult>(result);
         }
+
+
+        //[Fact]
+        //public async Task ForgotPassword_Model_Ok()
+        //{
+        //    _userManager.Setup(x => x.GetUserEmailAsync("email@gmail.com"))
+        //        .ReturnsAsync(new UserDto { Id = 1});
+
+        //    var code = _userManager.Setup(x => x.GeneratePasswordResetTokenAsync(1))
+        //        .ReturnsAsync("code");
+
+        //    var result = await _controller
+        //        .ForgotPassword(new ForgotPasswordViewModel { Email = "email@gmail.com" });
+
+        //    var viewResult = Assert.IsType<ViewResult>(result);
+        //}
     }
 }

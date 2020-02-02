@@ -13,7 +13,6 @@ namespace BlogPost.Web.Models.Account
         [EmailAddress]
         [Display(Name = "Email")]
         [RegularExpression(@"[A-Za-z0-9._%+-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}", ErrorMessage = "Incorect adress")]
-        [Remote(action: "IsEmailInUse", controller: "Account")]
         public string Email { get; set; }
 
         [Required]

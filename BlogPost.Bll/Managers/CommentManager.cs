@@ -48,7 +48,8 @@ namespace BlogPost.Bll.Managers
 
         public async Task UpdateComment(CommentDto dto)
         {
-            var entity = _mapper.Map<CommentEntity>(dto);
+            var entity = await _commnentRepository.GetAsync(dto.Id);
+            entity.Text = dto.Text;
             entity.UpdatedAt = DateTime.UtcNow;
 
             await _commnentRepository.UpdateAsync(entity);

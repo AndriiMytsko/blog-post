@@ -68,7 +68,7 @@ namespace BlogPost.Web.Controllers
             postDto.User = User.CreateUserDto();
             await _postManager.UpdatePost(postDto);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
 
         public async Task<IActionResult> DeletePost(PostViewModel post)
@@ -87,7 +87,7 @@ namespace BlogPost.Web.Controllers
         {
             await _postManager.DeletePost(post.Id);
 
-            return RedirectToAction("Index");
+            return RedirectToAction("Index", "Home");
         }
     }
 }
