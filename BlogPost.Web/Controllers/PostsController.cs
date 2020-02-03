@@ -4,10 +4,12 @@ using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Posts;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPost.Web.Controllers
 {
+    [Authorize]
     public class PostsController : BaseController
     {
         private readonly IPostManager _postManager;
@@ -38,6 +40,7 @@ namespace BlogPost.Web.Controllers
             return RedirectToAction("Index", "Home");
         }
 
+        [AllowAnonymous]
         public async Task<IActionResult> PostDetails(int? id)
         {
             var postDto = await _postManager.GetPost(id.Value);

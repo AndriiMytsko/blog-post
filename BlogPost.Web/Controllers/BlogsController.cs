@@ -4,6 +4,7 @@ using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Blogs;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPost.Web.Controllers
@@ -20,6 +21,7 @@ namespace BlogPost.Web.Controllers
             _blogManager = blogManager;
         }
 
+        [Authorize]
         public IActionResult CreateBlog()
         {
             return View("CreateBlog");
@@ -48,6 +50,7 @@ namespace BlogPost.Web.Controllers
             return View("BlogDetails", model);
         }
 
+        [Authorize]
         public async Task<IActionResult> EditBlog(UpdateBlogViewModel blog)
         {
             var blogDto = await _blogManager.GetBlog(blog.Id);

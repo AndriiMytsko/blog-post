@@ -227,6 +227,7 @@ namespace BlogPost.Web.Controllers
         }
 
         [HttpPost]
+        [Authorize]
         public async Task<IActionResult> SetImage(IFormFile uploadedFile)
         {
             var image = Mapper.Map<ImageDto>(uploadedFile);

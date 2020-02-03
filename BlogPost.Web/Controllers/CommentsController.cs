@@ -4,10 +4,12 @@ using BlogPost.Bll.DTOs;
 using BlogPost.Bll.Managers.Interfaces;
 using BlogPost.Web.Infrastructure.Extensions;
 using BlogPost.Web.Models.Comments;
+using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Mvc;
 
 namespace BlogPost.Web.Controllers
 {
+    [Authorize]
     public class CommentsController : BaseController
     {
         private readonly ICommentManager _commentManager;
